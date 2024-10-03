@@ -16,7 +16,9 @@ def register():
         # On récupère les champs 'username' et 'password' de la requête HTTP
         username = request.form['username']
         password = request.form['password']
-
+        email = request.form['email']
+        name = request.form['name']
+        last_name = request.form['last_name']
         # On récupère la base de donnée
         db = get_db()
 
@@ -24,12 +26,13 @@ def register():
         # on essaie d'insérer l'utilisateur dans la base de données
         if username and password:
             try:
-                db.execute("INSERT INTO users (username, password) VALUES (?, ?)",(username, generate_password_hash(password)))
+                db.execute("INSERT INTO users (username, password, email, name, last_name) VALUES (?, ?, ?, ?, ?)",(username, email, name, last_name, generate_password_hash(password)))
                 # db.commit() permet de valider une modification de la base de données
                 db.commit()
                 # On ferme la connexion à la base de données pour éviter les fuites de mémoire
                 close_db()
                 
+
             except db.IntegrityError:
 
                 # La fonction flash dans Flask est utilisée pour stocker un message dans la session de l'utilisateur
