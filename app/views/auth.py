@@ -26,7 +26,7 @@ def register():
         # on essaie d'insérer l'utilisateur dans la base de données
         if username and password:
             try:
-                db.execute("INSERT INTO users (username, password, email, name, last_name) VALUES (?, ?, ?, ?, ?)",(username, email, name, last_name, generate_password_hash(password)))
+                db.execute("INSERT INTO users (username, password, email, name, last_name) VALUES (?, ?, ?, ?, ?)",(username, generate_password_hash(password), email, name, last_name))
                 # db.commit() permet de valider une modification de la base de données
                 db.commit()
                 # On ferme la connexion à la base de données pour éviter les fuites de mémoire
@@ -83,7 +83,7 @@ def login():
         # De cette manière, à chaque requête de l'utilisateur, on pourra récupérer l'id dans le cookie session
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
+            session['id_user'] = user['id_user']
             # On redirige l'utilisateur vers la page principale une fois qu'il s'est connecté
             return redirect("/")
         
@@ -110,11 +110,11 @@ def logout():
 def load_logged_in_user():
 
     # On récupère l'id de l'utilisateur stocké dans le cookie session
-    user_id = session.get('user_id')
+    id_user = session.get('id_user')
 
     # Si l'id de l'utilisateur dans le cookie session est nul, cela signifie que l'utilisateur n'est pas connecté
     # On met donc l'attribut 'user' de l'objet 'g' à None
-    if user_id is None:
+    if id_user is None:
         g.user = None
 
     # Si l'id de l'utilisateur dans le cookie session n'est pas nul, on récupère l'utilisateur correspondant et on stocke
@@ -122,7 +122,7 @@ def load_logged_in_user():
     else:
          # On récupère la base de données et on récupère l'utilisateur correspondant à l'id stocké dans le cookie session
         db = get_db()
-        g.user = db.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
+        g.user = db.execute('SELECT * FROM users WHERE id_user = ?', (id_user,)).fetchone()
         # On ferme la connexion à la base de données pour éviter les fuites de mémoire
         close_db()
 
