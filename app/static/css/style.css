@@ -20,8 +20,10 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
+    background-image: linear-gradient(to right, #1d0275 , black);
+    font-family: LexendDeca;
   }
-  
+
   /* 5. Improve media defaults */
   img, picture, video, canvas, svg {
     display: block;
@@ -46,6 +48,12 @@
   /*
 -----------------   ADD YOUR CSS RULES BELOW ------------------
 */
+@font-face {
+  font-family: LexendDeca;
+  src: url(LexendDeca.ttf);
+  font-variant: small-caps;
+  font-weight: 500;
+}
 
 header{
     height: 100px;
@@ -56,10 +64,11 @@ header{
     height: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 #header-nav-logo{
-    width:20%;
+    width:10%;
     display: flex;
 }
 
