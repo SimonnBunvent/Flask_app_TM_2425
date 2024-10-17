@@ -20,8 +20,10 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
+    font-family: LexendDeca; 
+    color: white;
     background-image: linear-gradient(to right, #1d0275 , black);
-    font-family: LexendDeca;
+
   }
 
   /* 5. Improve media defaults */
@@ -92,7 +94,7 @@ header{
 #header-nav>ul{
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     gap: 100px;
 }
@@ -126,6 +128,18 @@ header{
     align-items: center;
     justify-content: center;
 }
+
+.column{
+  display: flex;
+  flex-direction: column; 
+}
+
+.item {
+  background-color: lightblue;
+  padding: 10px;
+  margin: 5px;
+}
+  
 .content-index h1{
     text-align: center;
 }

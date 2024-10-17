@@ -13,10 +13,11 @@
                 </a>
             </div>
             <ul id="header-nav-menu">
+                <li><a href="create/createproject.html">Créer un projet</a></li>
                 {% if g.user %}
                     <li><span>{{ g.user['username'] }}</span>
                     <li><a href="{{ url_for('auth.logout') }}">Se déconnecter</a>
-                    <li><a href="{{url_for('user.show_profile')}}">Consulter son profil</a></li>
+                    <li><a href="{{ url_for('user.show_profile') }}">Consulter son profil</a></li>
                 {% else %}
                     <li><a href="{{ url_for('auth.register') }}">S'enregistrer</a>
                     <li><a href="{{ url_for('auth.login') }}">Se connecter</a>
