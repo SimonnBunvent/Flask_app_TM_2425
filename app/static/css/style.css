@@ -99,7 +99,7 @@ h1 {
 
 h2 {
   font-size: 60px;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 h3 {
@@ -201,6 +201,7 @@ footer{
 input[type=button], input[type=submit]{
   background-color: #FED33B;
   color: black;
+  font-weight: 700;
   border: none;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -209,7 +210,7 @@ input[type=button], input[type=submit]{
   cursor: pointer;
 }
 
-input[type=button]{
+input[value="Créer un projet"]{
   background-image: linear-gradient(to right, #FF1058 , #CE1A1A);
   color: white;
   border: none;
@@ -220,7 +221,7 @@ input[type=button]{
   transition: .5s;
 }
 
-input[type=button]:hover{
+input[value="Créer un projet"]:hover{
   background-image: linear-gradient(to right, white, white);
   color: #EF1344;
   cursor: pointer;
@@ -268,7 +269,7 @@ a[href=emailcode]:hover{
 
 .block {
   background: rgb(255, 255, 255, .75);
-  padding: 5% 1% 10% 1%;
+  padding: 5% 1% 5% 1%;
   border-radius: 10px;
   margin: auto;
 }
