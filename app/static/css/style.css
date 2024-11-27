@@ -228,7 +228,7 @@ input[type=button]:hover{
   z-index: 2;
 }
 
-input[type=text], input[type=password], input[type=email]{
+.connection-textbox{
   background-color: #0C124C;
   color: white;
   border: none;

@@ -13,8 +13,8 @@
         <div class="column">
             <h4 style="width: 500px; margin-top: -30px; margin-bottom: 50px;">Veuillez saisir votre adresse email afin de recevoir le lien de réinitialisation de votre mot de passe</h4>
         <form method="post">
-        <div style="margin-bottom: 20px;"><input type="text" placeholder="email@exemple.com" name="email" id="email" required></div>
-        <div ><a href="{{url_for('auth.reset_password)}}"><input type="button" value="Envoyer" style="padding-right: 220px; padding-left: 220px;"></a></div>
+        <div style="margin-bottom: 20px;"><input type="text" placeholder="email@exemple.com" name="email" id="email" required class="connection-textbox"></div>
+        <div ><a href="{{url_for('auth.password_reset')}}"><input type="submit" value="Envoyer" style="padding-right: 220px; padding-left: 220px;"></a></div>
         </form>
         </div>
 
