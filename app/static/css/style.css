@@ -74,6 +74,10 @@
   justify-content: center; 
 }
 
+.start{
+  justify-content: flex-start;
+}
+
 .end{
   display: flex;
   justify-content: end;
@@ -431,4 +435,14 @@ input[value="Sauvegarder"]:hover{
   cursor: pointer;
   position: relative;
   z-index: 2;
+}
+
+.artist_pfp{
+  height: 50px;
+  width: 50px;
+}
+
+.artist-work{
+  height: 31%;
+  width: 31%;
 }
