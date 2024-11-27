@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="content-margin">
+  <div class="content-profile">
     <div>
       <ul>
         <div class="content-profile-title">
@@ -19,7 +19,7 @@
                 <span>{{ g.user['username'] }}</span>
               </h3>
               <ul>
-                <a href="{{ url_for('user.edit_profile')}}" class="small_link">changer mon profil</a>
+                <a>changer mon profil</a>
               </ul>
             </div>
             {%if g.user['profile_pic'] is none%}

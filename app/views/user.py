@@ -10,3 +10,9 @@ user_bp = Blueprint('user', __name__, url_prefix='/user')
 def show_profile():
     # Affichage de la page principale de l'application
     return render_template('user/profile.html')
+
+@user_bp.route('/edit', methods=('GET', 'POST'))
+@login_required 
+def edit_profile():
+
+    return render_template('user/edit.html')

@@ -6,6 +6,7 @@ from app.utils import *
 # Chaque blueprint contient des routes pour l'application
 from app.views.home import home_bp
 from app.views.auth import auth_bp
+from app.views.artists import artists_bp
 from app.views.user import user_bp
 from app.views.create import create_bp
 # Fonction automatiquement appelée par le framework Flask lors de l'exécution de la commande python -m flask run permettant de lancer le projet
@@ -21,8 +22,10 @@ def create_app():
     # Enreigstrement des blueprints de l'application.
     app.register_blueprint(home_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(artists_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(create_bp)
+    
 
 
     # On retourne l'instance de l'application Flask

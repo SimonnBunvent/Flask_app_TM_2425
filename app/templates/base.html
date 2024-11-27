@@ -2,28 +2,44 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <header id="header">
         <nav id="header-nav">
-            <div id="header-nav-logo">
+            <div id="header-nav-img">
                 <a href="{{url_for('home.landing_page')}}">
-                    <img src="{{url_for('static', filename='imgs/logo-csud.svg')}}" alt="logo-csud"/>
+                    <img src="{{url_for('static', filename='imgs/logo.png')}}" alt="logo-unitearts"/>
                 </a>
             </div>
             <ul id="header-nav-menu">
-                <li><a href="create/createproject.html">Créer un projet</a></li>
+                    <li><a href="{{ url_for('auth.artists') }}">artistes</a></li>
+                    <li><a href="{{ url_for('auth.gallery') }}">oeuvres</a></li>
+                    <li><a href="{{ url_for('auth.create') }}">créer un projet</a></li>
                 {% if g.user %}
-                    <li><span>{{ g.user['username'] }}</span>
-                    <li><a href="{{ url_for('auth.logout') }}">Se déconnecter</a>
-                    <li><a href="{{ url_for('user.show_profile') }}">Consulter son profil</a></li>
+                    <li><a href="{{ url_for('auth.create') }}">projets en progrès</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('auth.register') }}">S'enregistrer</a>
-                    <li><a href="{{ url_for('auth.login') }}">Se connecter</a>
+                    <li><a href="{{ url_for('auth.register') }}">s'enregistrer</a>
+                    <li><a href="{{ url_for('auth.login') }}">se connecter</a>
                 {% endif %}
             </ul>
+            
+            <div id="header-nav-img" class="profile-pic">
+                {%if g.user['profile_pic'] is none%}
+                    <a href="{{url_for('user.show_profile')}}">
+                        <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                    </a>
+                {% else %}
+                    <a href="{{url_for('user.show_profile')}}">
+                        <span  >{{g.user['profile_pic']}}</span>
+                    </a>
+                {% endif %}
+            </div>
         </nav>
+            <hr class="line">
     </header>
         
     <main id="main-content">
@@ -31,15 +47,16 @@
     </main>
 
     <footer id="footer">
+        <hr class="line2">
         <div id="footer-nav">
             <div>
                 <p>Template de base TM</p>
             </div>
             <div>
-                <p>Collège du Sud, 1630, Bulle </p>
+                <p>UniteArts</p>
             </div>
             <div>
-                <p>Johan Jobin</p>
+                <p>Simon Buenaventura</p>
             </div>
         </div>
     </footer>

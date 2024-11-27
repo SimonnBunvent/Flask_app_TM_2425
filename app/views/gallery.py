@@ -3,8 +3,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app.db.db import get_db, close_db
 import os
 
-create_bp = Blueprint('create', __name__, url_prefix='/create')
+gallery_bp = Blueprint('gallery', __name__,url_prefix='/gallery')
 
-@create_bp.route('/createproject')
-def createproject():
-    return render_template('create/createproject.html')
+@gallery_bp.route('/artworks')
+def artworks():
+    return render_template('artworks.html')

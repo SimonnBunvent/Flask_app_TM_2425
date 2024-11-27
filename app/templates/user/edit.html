@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Profil
+{% endblock %}
+
+{% block content %}
+    <div class="content-margin">
+        <div>
+            </div class="column">
+                <h2>
+                    Changer mon profil
+                </h2>
+                <div class="row" style="margin: 2%;">
+                    {%if g.user['profile_pic'] is none%}
+                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                    {% else %}
+                    <span>{{g.user['profile_pic']}}</span>
+                    {% endif %}
+                    <div style="margin-left: 50px;">
+                        <h3>
+                            <span>{{ g.user['username'] }}</span>
+                        </h3>
+                        <a href="{{ url_for('auth.logout') }}" class="small_link">déconnexion</a>
+                    </div>
+                </div>
+            </div>
+            <div id="shape2" class="content-margin">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
