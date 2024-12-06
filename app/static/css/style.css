@@ -289,7 +289,7 @@ a[href=emailcode]:hover{
   size: 200px;
 }
 #shape1 {
-  width: 400px;
+  width: 20%;
   height: 700px;
   background-color: rgba(255, 255, 255, .75);
   border: none;
@@ -362,8 +362,15 @@ a[href=emailcode]:hover{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 80%;
+  height: auto;
 }
 
+.profile_proj_img{
+  width: 80%;
+  height: auto;
+  max-width: 100%;
+}
 
 .wide{
   width: 1350px;
@@ -438,8 +445,8 @@ input[value="Sauvegarder"]:hover{
 }
 
 .artist_pfp{
-  height: 50px;
-  width: 50px;
+  height: 10%;
+  width: 10%;
 }
 
 .artist-work{
