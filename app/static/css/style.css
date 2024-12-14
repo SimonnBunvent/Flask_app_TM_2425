@@ -436,7 +436,7 @@ a[href=emailcode]:hover{
   margin-bottom: 5px;
 }
 
-input[value="Sauvegarder"]{
+input[value="Sauvegarder"], input[value="Confirmer"]{
   background-image: linear-gradient(to right, #FF1058 , #CE1A1A);
   color: white;
   border: none;
@@ -447,7 +447,7 @@ input[value="Sauvegarder"]{
   transition: .5s;
 }
 
-input[value="Sauvegarder"]:hover{
+input[value="Sauvegarder"], input[value="Confirmer"]:hover{
   background-image: linear-gradient(to right, white, white);
   color: #EF1344;
   cursor: pointer;
@@ -472,7 +472,7 @@ input[value="Sauvegarder"]:hover{
   
   display: flex;
   justify-content:center;
-  height: 1300px;
+  height: 1100px;
   width: 1500px;
   background-color: rgba(255, 255, 255, .75);
   border: none;
@@ -496,10 +496,18 @@ input[value="Sauvegarder"]:hover{
 }
 
 #rectangleC{
-  height: 1075px;
+  height: 875px;
   width: 100%;
   background-color: rgba(255, 255, 255, .75);
   border: none;
   border-radius: 10px;
 }
 
+#square{
+  height: 100px;
+  width: 100px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  margin: auto;
+}

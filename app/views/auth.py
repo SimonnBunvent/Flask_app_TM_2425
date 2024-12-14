@@ -111,22 +111,6 @@ def reset():
 @auth_bp.route('/password_reset')
 def password_reset():
     return render_template('auth/password_reset.html')
-
-
-
-@auth_bp.route('/people')
-def artists():
-    return render_template('artists/people.html')
-
-@auth_bp.route('/artworks')
-def gallery():
-    return render_template('gallery/artworks.html')
-
-@auth_bp.route('/createproject')
-def create():
-    # Se déconnecter consiste simplement à supprimer le cookie session
-    return render_template('create/createproject.html')
-
     # On redirige l'utilisateur vers la page principale une fois qu'il s'est déconnecté
     return redirect("/")
 # Fonction automatiquement appelée à chaque requête (avant d'entrer dans la route) sur une route appartenant au blueprint 'auth_bp'

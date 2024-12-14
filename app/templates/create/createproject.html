@@ -11,8 +11,8 @@
     </div>
     <div style="margin-right: 20px;">
       <p><h2 class="a">Créer un projet</h2>
-      <div id="rectangleC">
-        <input type="text" placeholder="Nom du projet" class="box-black">
+      <div id="rectangleC" style="padding-top: 20px;">
+        <input type="text" placeholder="Nom du projet" maxlength="25" class="box-black">
         <div class="lineblk"></div>
         <h5>Description du projet</h5>
         <input type="text" placeholder="Thème, style" class="box-black">
@@ -35,18 +35,26 @@
           <option>3:4</option>
           <option>4:5</option>
           <option>9:16</option>
-          
-        </select> 
-        <div class="row">
-            <h5>x :</h5>
-            <h5>y :</h5>
+        </select>  
+        <div class="row around">
+            <div class="row" style="height: 35px; margin-bottom: 10px;">
+              <h5 style="margin: auto;">x : </h5>
+              <input type="text" class="box-black" style="width: 150px; margin-top: 5px; margin-left: 10px;">
+            </div>
+            <div class="row" style="height: 35px;">
+              <h5 style="margin: auto;">y :</h5>
+              <input type="text" class="box-black" style="width: 150px; margin-top: 5px; margin-left: 10px;">
+            </div>
         </div>
         <div class="lineblk"></div>
-        <div class="row">
+        <div class="row">     
           <div class="column">
-            <h5>couleur de l'arrière-plan :</h5>  
+            <h5>couleur de l'arrière-plan :</h5>
+            <input type="text" class="box-black"> 
           </div>
+          <div id="square"></div>
         </div>
+        <input type="submit" value="Confirmer" class="center">
       </div>
     </div>
   </div>
