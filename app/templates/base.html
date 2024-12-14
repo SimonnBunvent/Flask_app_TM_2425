@@ -5,11 +5,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <header id="header">
-        <nav id="header-nav">
+        <nav class="nav" id="header-nav">
             <div id="header-nav-img">
                 <a href="{{url_for('home.landing_page')}}">
                     <img src="{{url_for('static', filename='imgs/logo.png')}}" alt="logo-unitearts"/>
@@ -42,10 +43,8 @@
             <hr class="line">
     </header>
         
-    <main id="main-content">
+    <main id="main-content" class="content-margin">
         {% block content %}{% endblock %}
     </main>
 
-
-    <script type="text/javascript" src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
