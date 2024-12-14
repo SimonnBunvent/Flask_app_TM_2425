@@ -373,8 +373,15 @@ a[href=emailcode]:hover{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 80%;
+  height: auto;
 }
 
+.profile_proj_img{
+  width: 80%;
+  height: auto;
+  max-width: 100%;
+}
 
 .wide{
   width: 80%;
