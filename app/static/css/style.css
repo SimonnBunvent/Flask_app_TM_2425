@@ -300,11 +300,12 @@ a[href=emailcode]:hover{
   size: 200px;
 }
 #shape1 {
-  width: 30%;
+  width: 25%;
   height: 700px;
   background-color: rgba(255, 255, 255, .75);
   border: none;
   border-radius: 10px;
+  margin-right: 0px;
 }
 
 #shape2 {
@@ -373,7 +374,7 @@ a[href=emailcode]:hover{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
   height: auto;
 }
 
@@ -447,7 +448,7 @@ input[value="Sauvegarder"], input[value="Confirmer"]{
   transition: .5s;
 }
 
-input[value="Sauvegarder"], input[value="Confirmer"]:hover{
+input[value="Sauvegarder"]:hover, input[value="Confirmer"]:hover{
   background-image: linear-gradient(to right, white, white);
   color: #EF1344;
   cursor: pointer;
@@ -510,4 +511,17 @@ input[value="Sauvegarder"], input[value="Confirmer"]:hover{
   border-color: black;
   border-width: 1px;
   margin: auto;
+}
+
+select {
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0 );
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  padding: 5px 11.99% 5px 10px;
+  border-radius: 10px;
 }
