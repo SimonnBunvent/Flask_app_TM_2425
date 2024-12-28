@@ -437,7 +437,7 @@ a[href=emailcode]:hover{
   margin-bottom: 5px;
 }
 
-input[value="Sauvegarder"], input[value="Confirmer"]{
+.button{
   background-image: linear-gradient(to right, #FF1058 , #CE1A1A);
   color: white;
   border: none;
@@ -448,13 +448,14 @@ input[value="Sauvegarder"], input[value="Confirmer"]{
   transition: .5s;
 }
 
-input[value="Sauvegarder"]:hover, input[value="Confirmer"]:hover{
+.button:hover{
   background-image: linear-gradient(to right, white, white);
   color: #EF1344;
   cursor: pointer;
   position: relative;
   z-index: 2;
 }
+
 
 .artist_pfp{
   height: 10%;
