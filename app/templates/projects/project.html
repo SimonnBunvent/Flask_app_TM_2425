@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Projets en progrès
+{% endblock %}
+
+{% block content %}
+<div class="column">
+    <div class="row">
+        
+        <div class="block row" style="width: 85%; padding-top: 0px;">
+            <div class="column">
+                <div class="box-black-huge" style="width: 50%; height: auto;">
+                    <h5 style="opacity: .5; float: left;">Description</h5>
+                </div>
+
+                
+
+                {%if g.user['profile_pic'] is none%}
+                <a href="{{url_for('user.show_profile')}}">
+                    <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="width: 5%;">
+                </a>
+                {% else %}
+                <a href="{{url_for('user.show_profile')}}">
+                    <span style="color: black;">{{g.user['profile_pic']}}</span>
+                </a>
+                {% endif %}
+                <span>{{ g.user['username'] }}</span>
+            </div>
+             
+                <h3 style="margin: auto; margin-right: 20%;"><a href="{{url_for('projects.project')}}" style="text-decoration: none; color: white;">Aucun projet n'a été déposé...</a></h3>
+            
+        </div>
+        <div class="column">
+            <h2 style="float: left;  margin-left:5%;">Titre</h2>
+            <div class="block row" style="width: auto; height: auto;">
+                <div class="box-black-huge">
+                    <h5 style="opacity: .5;">Description</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

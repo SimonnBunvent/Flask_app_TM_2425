@@ -21,7 +21,7 @@
                     <li><a href="{{ url_for('gallery.artworks') }}">oeuvres</a></li>
                     <li><a href="{{ url_for('create.createproject') }}">créer un projet</a></li>
                 {% if g.user %}
-                    <li><a href="{{ url_for('create.createproject') }}">projets en progrès</a></li>
+                    <li><a href="{{ url_for('projects.projects') }}">projets en progrès</a></li>
                 {% else %}
                     <li><a href="{{ url_for('auth.register') }}">s'enregistrer</a>
                     <li><a href="{{ url_for('auth.login') }}">se connecter</a>
