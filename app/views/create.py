@@ -1,7 +1,7 @@
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from app.db.db import get_db, close_db
 from app.utils import *
-
+import os
 
 create_bp = Blueprint('create', __name__, url_prefix='/create')
 
@@ -17,7 +17,7 @@ def createproject():
 
 
         if name and no_participants:
-            db.execute("INSERT INTO galleries (name, description, deadline) VALUES (?, ?, ?)",(name, description, deadline))
+            db.execute("INSERT INTO galleries (name, description, no_participants, deadline) VALUES (?, ?, ?, ?)",(name, description, no_participants, deadline))
             db.commit()
             close_db()
             
