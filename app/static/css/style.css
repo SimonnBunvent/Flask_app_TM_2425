@@ -220,7 +220,7 @@ footer{
     transition: 1.5s;
 }
 
-input[type=button], input[value="Poursuivre"], input[value="Confirmer"]{
+input[type=button], input[value="Poursuivre"], input[value="Envoyer"]{
   background-color: #FED33B;
   color: black;
   font-weight: 700;
