@@ -18,9 +18,15 @@
     {% endif %}
   </div>
   <div class="center">
+    {% if g.user is none %}
+    <a href="{{ url_for('auth.login') }}">
+      <input type="button" value="Créer un projet" class="create-button">
+    </a>
+    {% else %}
     <a href="{{ url_for('create.createproject') }}">
       <input type="button" value="Créer un projet" class="create-button">
     </a>
+    {% endif %}
   </div>
   <div class="hmpg">
   </div>  

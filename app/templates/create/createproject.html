@@ -39,18 +39,18 @@
           <option value="3:4">3:4</option>
           <option value="4:5">4:5</option>
           <option value="9:16">9:16</option>
-        </select>
-        <div id="dynamicContent"></div>
-        
+        </select>    
 
+<label for="hexInput"></label>
 <div id="dynamicContent"></div>
-
 
         <div class="lineblk"></div>
         <div class="row">     
           <div class="column">
             <h5>couleur de l'arrière-plan :</h5>
-            <input type="text" class="box-black"> 
+            <label for="hexInput"></label>
+            <input type="text" id="hexInput" placeholder="#000000" class="box-black"> 
+            <div class="error" id="errorMessage" style="color: black;"></div>
           </div>
           <div id="square"></div>
         </div> 
@@ -89,39 +89,67 @@
             </div>
         `;
         shapeX.innerHTML = `
-        <h2 style="margin: auto;">Format libre</h2>
+        <h2 style="margin: auto; margin-top: 100  %;">Format libre</h2>
         `;
       }
       
       if (selectedValue === "1:1") {
-          shapeX.innerHTML = ` 
-          <div class="shapeY" style="width: 800px; height: 800px;"></div>
-          `;
-        }
-        if (selectedValue === "2:3") {
-          shapeX.innerHTML = ` 
-          <div class="shapeY" style="width: 600px; height: 900px;"></div>
-          `;
-        }
-        if (selectedValue === "3:4") {
-          shapeX.innerHTML = ` 
-          <div class="shapeY" style="width: 600px; height: 800px;"></div>
-          `;
-        }
-        if (selectedValue === "4:5") {
-          shapeX.innerHTML = ` 
-          <div class="shapeY" style="width: 640px; height: 800px;"></div>
-          `;
-        }
-        if (selectedValue === "9:16") {
-          shapeX.innerHTML = ` 
-          <div class="shapeY" style="width: 450px; height: 800px;"></div>
-          `;
-        }
+        shapeX.innerHTML = ` 
+        <div id="shapeY" style="width: 800px; height: 800px;"></div>
+        `;
+      }
+      if (selectedValue === "2:3") {
+        shapeX.innerHTML = ` 
+        <div id="shapeY" style="width: 600px; height: 900px;"></div>
+        `;
+      }
+      if (selectedValue === "3:4") {
+        shapeX.innerHTML = ` 
+        <div id="shapeY" style="width: 600px; height: 800px;"></div>
+        `;
+      }
+      if (selectedValue === "4:5") {
+        shapeX.innerHTML = ` 
+        <div id="shapeY" style="width: 640px; height: 800px;"></div>
+        `;
+      }
+      if (selectedValue === "9:16") {
+        shapeX.innerHTML = ` 
+        <div id="shapeY" style="width: 450px; height: 800px;"></div>
+        `;
+      }
     } 
     updateContent();
     
     aspectRatioSelect.addEventListener('change', updateContent);
+ 
+  const hexInput = document.getElementById('hexInput');
+  const square = document.getElementById('square'); 
+  const errorMessage = document.getElementById('errorMessage');
+
+    function isValidHex(hex) {
+      return /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(hex);
+    }
+
+    function applyColor() {
+      const hexCode = hexInput.value.trim();
+
+      if (isValidHex(hexCode)) {
+        square.style.backgroundColor = hexCode;      
+        shapeY.style.backgroundColor = hexCode;
+        errorMessage.textContent = ''; 
+      } else {
+        errorMessage.textContent = 'Code hex invalide';
+      }
+    }
+
+    hexInput.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    applyColor();
+  }
   });
+});
+
 </script>
 {% endblock %}
