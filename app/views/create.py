@@ -1,4 +1,4 @@
-from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
+from flask import (Blueprint, flash, g, redirect, render_template, request, url_for)
 from app.db.db import get_db, close_db
 from app.utils import *
 import os
@@ -61,7 +61,7 @@ def send():
         close_db()
 
         if gallery:
-            gallery_id = gallery[1]
+            id_gallery = gallery['id_gallery']
             return f"YESYESYES"
         else:
             return f"NONONO"

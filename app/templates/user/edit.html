@@ -27,15 +27,23 @@
             </div>
             <div id="shape2" class="content-margin">
                 <div class="around">
+                    {%if g.user['last_name'] | trim is none%}
                     <input style="float: left;" type="text" placeholder="nom" class="box-black">
+                    {% else %}
+                    <input style="float: left;" type="text" placeholder="{{g.user['last_name']}}" class="box-black">
+                    {% endif %}
+                    {%if g.user['name'] | trim is none%}
                     <input style="float: right;" type="text" placeholder="prénom" class="box-black">
+                    {% else %}
+                    <input style="float: right;" type="text" placeholder="{{g.user['name']}}" class="box-black">
+                    {% endif %}
                 </div>
                 <div class="center column">
-                    <input type="text" placeholder="nom d'utilisateur" class="box-black-big">
-                    <input type="text" placeholder="style d'art préféré" class="box-black-big">
+                    <div class="box-black-big" style="justify-content: flex-start;">{{g.user['email']}}</div>
+                    <input type="text" name="fav_style" id="fav_style" placeholder="style d'art préféré" class="box-black-big">
                     <div class="lineblk"></div>
-                    <input type="text" placeholder="moi en une phrase" class="box-black-big blk-bx-margin">
-                    <input type="text" placeholder="description" class="box-black-huge blk-bx-margin">
+                    <input type="text" name="mini_desc" id="mini_desc" placeholder="moi en une phrase" class="box-black-big blk-bx-margin">
+                    <input type="text" name="desc" id="desc" placeholder="description" class="box-black-huge blk-bx-margin">
                     <input type="submit" value="Sauvegarder" class="button">
                 </div>
             </div>

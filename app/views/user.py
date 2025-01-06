@@ -1,5 +1,7 @@
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from app.utils import *
+from app.db.db import get_db, close_db
+import os
 
 # Routes /user/...
 user_bp = Blueprint('user', __name__, url_prefix='/user')
@@ -15,4 +17,26 @@ def show_profile():
 @login_required 
 def edit_profile():
 
-    return render_template('user/edit.html')
+    id_user = session.get('id_user')
+
+    if request.method == 'POST':
+        fav_style = request.form['fav_style']
+        mini_desc = request.form['mini_desc']
+        desc = request.form['desc']
+
+        db = get_db()
+
+        if fav_style or mini_desc or desc:
+            db.execute("""
+                UPDATE users 
+                SET 
+                    fav_style = COALESCE(?, fav_style), 
+                    mini_desc = COALESCE(?, mini_desc), 
+                    desc = COALESCE(?, desc)
+                WHERE id_user = ?
+            """, (fav_style, mini_desc, desc, id_user))
+            db.commit()
+            close_db()
+      
+    else:
+        return render_template('user/edit.html')
