@@ -35,8 +35,15 @@ def edit_profile():
                     desc = COALESCE(?, desc)
                 WHERE id_user = ?
             """, (fav_style, mini_desc, desc, id_user))
+            
+            if g.user['fav_style'] is None:
+                db.execute("INSERT INTO users (fav_style) VALUES(?)", (fav_style))
+            if g.user['mini_desc'] is None:
+                db.execute("INSERT INTO users (mini_desc) VALUES(?)", (mini_desc))
+            if  g.user['desc'] is None:
+                db.execute("INSERT INTO users (desc) VALUES(?)", (desc))
             db.commit()
             close_db()
-      
+            return redirect(url_for("user.edit"))
     else:
         return render_template('user/edit.html')
