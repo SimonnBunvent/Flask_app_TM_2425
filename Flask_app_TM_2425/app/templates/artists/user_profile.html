@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Profil
+{% endblock %}
+
+{% block content %}
+  <div class="content-profile">
+    <div>
+      <ul>
+        <div class="content-profile-title">
+          <div>
+            <h2>Mon profil</h2>
+            
+          </div>
+          <div class="user-info">
+            <div class="column end">
+              <h3 class="end">
+                <span>{{ g.user['username'] }}</span>
+              </h3>
+              <ul>
+                <a>changer mon profil</a>
+              </ul>
+            </div>
+            {%if g.user['profile_pic'] is none%}
+              <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+            {% else %}
+              <span>{{g.user['profile_pic']}}</span>
+            {% endif %}
+          </div> 
+        </div>
+        
+        <div class="profile_proj">
+          <div class="column">
+            <h3>
+              <p class="wide">Petite phrase qui vous décrit.</p>
+              <p>Les projets</p>
+            </h3>
+            <div class="between">
+              adwad
+              <p>dawdad</p>
+            </div>
+            <img src="/static/imgs/ex.jpg" alt="exemple">
+            date du projet
+          </div>
+
+          <div id="shape1">
+            <h4>
+              <span>{{g.user['name']}} {{g.user['last_name']}}</span>
+              <p>awofa</p>
+              <p>fhafoi</p>
+            </h4> 
+          </div>
+
+        </div>
+      </ul>
+    </div>
+
+  </div>  
+{% endblock %}
