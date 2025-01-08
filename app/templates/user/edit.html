@@ -18,7 +18,7 @@
                     <span>{{g.user['profile_pic']}}</span>
                     {% endif %}
                     <div style="margin-left: 50px;">
-                        <h3>
+                        <h3>    
                             <span>{{ g.user['username'] }}</span>
                         </h3>
                         <a href="{{ url_for('auth.logout') }}" class="small_link">déconnexion</a>
@@ -30,23 +30,31 @@
                     {%if g.user['last_name'] | trim is none%}
                     <input style="float: left;" type="text" placeholder="nom" class="box-black">
                     {% else %}
-                    <input style="float: left;" type="text" placeholder="{{g.user['last_name']}}" class="box-black">
+                    <div style="float: left;" class="box-black">{{g.user['last_name']}}</div>
                     {% endif %}
                     {%if g.user['name'] | trim is none%}
                     <input style="float: right;" type="text" placeholder="prénom" class="box-black">
                     {% else %}
-                    <input style="float: right;" type="text" placeholder="{{g.user['name']}}" class="box-black">
+                    <div style="float: right;" class="box-black">{{g.user['name']}}</div>
                     {% endif %}
                 </div>
                 <div class="center column">
                     <div class="box-black-big" style="justify-content: flex-start;">{{g.user['email']}}</div>
                     <input type="text" name="fav_style" id="fav_style" placeholder="style d'art préféré" class="box-black-big">
                     <div class="lineblk"></div>
-                    <input type="text" name="mini_desc" id="mini_desc" placeholder="moi en une phrase" class="box-black-big blk-bx-margin">
-                    <input type="text" name="desc" id="desc" placeholder="description" class="box-black-huge blk-bx-margin">
+                    <textarea type="text" name="mini_desc" id="mini_desc" placeholder="moi en une phrase" maxlength="30" rows="1" class="box-black-big blk-bx-margin" onkeypress="preventNewLine(event)" style="resize: none;"></textarea>
+                    <textarea type="text" name="desc" id="desc" placeholder="description" maxlength="300" rows="13" class="box-black-huge blk-bx-margin" style="resize: none;"></textarea>
                     <input type="submit" value="Sauvegarder" class="button">
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function preventNewLine(event) {
+            if (event.key === "Enter" || event.keyCode === 13) {
+                event.preventDefault();
+            }
+        }
+    </script>
 {% endblock %}

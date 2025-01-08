@@ -408,7 +408,7 @@ a[href=emailcode]:hover{
   border-color: black;
   border-style: solid;
   border-width: 1px;
-  padding: 5px 60% 5px 10px;
+  padding: 5px 10px 5px 10px;
   margin: 6px 2% 4px 2%;
   border-radius: 10px;
 }
@@ -421,7 +421,7 @@ a[href=emailcode]:hover{
   border-color: black;
   border-style: solid;
   border-width: 1px;
-  padding: 5px 70px 300px 10px;
+  padding: 5px 10px 10px 10px;
   margin: 5px 2% 2% 2%;
   border-radius: 10px;
 }
