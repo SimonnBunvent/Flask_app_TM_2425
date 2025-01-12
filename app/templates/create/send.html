@@ -7,7 +7,7 @@ Envoyer l'email
 {% block content %}
 <div class="block" style=" width: 40%;">
     <h5 class="center" style="font-size: 200%; font-weight: 400; padding-left: 10%a;"> Envoyer à :</h5>
-    <input type="email" class="box-black-big center" style="margin: auto;">
+    <input type="email" class="box-black center" style="padding: 100%;">
     <div class="lineblk" style="margin-left: 20%; margin-right: 20%;"></div>
     <h5 class="center">Titre</h5>
     <div class="row">
@@ -20,7 +20,7 @@ Envoyer l'email
             <h5>Participants :</h5>
             <h5>Delai :</h5>
             <h5>Couleur de l'arrière-plan :
-                <span></span>
+                <span>{{g.gallery['desc']}}</span>
             </h5>
         </div>
     </div>

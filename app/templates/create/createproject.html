@@ -23,7 +23,7 @@
           <div class="row">
             <h5 style="width: 200px;">Nombre de participants :</h5>
             <div>
-              <input type="number" name="no_participants" id="no_participants" min=1 max=3 class="box-black-big" style="margin-top: 20px; margin-right: auto;" required>
+              <input type="number" name="no_participants" id="no_participants" min=1 max=5 class="box-black-big" style="margin-top: 20px; margin-right: auto;" required>
             </div>
           </div>
         <div class="lineblk"></div>
@@ -42,18 +42,15 @@
           <option value="9:16">9:16</option>
         </select>    
 
-<label for="hexInput"></label>
 <div id="dynamicContent"></div>
 
         <div class="lineblk"></div>
         <div class="row">     
           <div class="column">
             <h5>couleur de l'arrière-plan :</h5>
-            <label for="hexInput"></label>
-            <input type="text" name="color" id="color" placeholder="#000000" class="box-black"> 
-            <div class="error" id="errorMessage" style="color: black;"></div>
+            <input type="text" name="color" id="color" placeholder="#000000" class="box-black" value="#FFFFFF" maxlength="7" oninput="updateColorPicker()">
           </div>
-          <div id="square"></div>
+          <input type="color" id="colorPicker" onchange="updateHexCode()" value="#FFFFFF">  
         </div> 
         <div class="center"><input type="submit" value="Confirmer" class="button"></div>
         </form>
@@ -79,20 +76,8 @@
       }
 
       if (selectedValue === "libre") {
-        dynamicContent.innerHTML = `
-          <div class="row around">
-              <div class="row" style="height: 35px; margin-bottom: 10px;">
-                <h5 style="margin: auto;">x : </h5>
-                <input type="number" min=1 max=3000 class="box-black" style="width: 150px; margin-top: 5px; margin-left: 10px;">
-              </div>
-              <div class="row" style="height: 35px;">
-                <h5 style="margin: auto;">y :</h5>
-                <input type="number" min=1 max=3000 class="box-black" style="width: 150px; margin-top: 5px; margin-left: 10px;">
-              </div>
-            </div>
-        `;
         shapeX.innerHTML = `
-        <h2 style="margin: auto; margin-top: 100  %;">Format libre</h2>
+        <h2 style="padding-top: 500px; margin: auto; ">Format libre</h2>
         `;
       }
       
@@ -126,33 +111,31 @@
     
     aspectRatioSelect.addEventListener('change', updateContent);
  
-  const color = document.getElementById('color');
-  const square = document.getElementById('square'); 
-  const errorMessage = document.getElementById('errorMessage');
+    
+  });
+  function updateHexCode() {
+        const colorPicker = document.getElementById("colorPicker");
+        const hexCodeInput = document.getElementById("color");
+        const shapeX = document.getElementById("shapeY)");
+        hexCodeInput.value = colorPicker.value;
 
-    function isValidHex(hex) {
-      return /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(hex);
+        const selectedColor = colorPicker.value;
+        hexCodeInput.value = selectedColor;
+        shapeY.style.backgroundColor = selectedColor;
     }
 
-    function applyColor() {
-      const hexCode = color.value.trim();
+    function updateColorPicker() {
+      const colorPicker = document.getElementById("colorPicker");
+      const hexCodeInput = document.getElementById("color");  
+      const shapeX = document.getElementById("shapeY)");
+      const hexValue = hexCodeInput.value;
 
-      if (isValidHex(hexCode)) {
-        square.style.backgroundColor = hexCode;      
-        shapeY.style.backgroundColor = hexCode;
-        errorMessage.textContent = ''; 
-      } else {
-        errorMessage.textContent = 'Code hex invalide';
+      if (/^#[0-9A-Fa-f]{6}$/.test(hexValue)) {
+        colorPicker.value = hexValue;
+        shapeX.style.backgroundColor = hexValue;  
       }
     }
 
-    color.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter') {
-    event.preventDefault();
-    applyColor();
-  }
-  });
-});
 
 </script>
 {% endblock %}

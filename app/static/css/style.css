@@ -355,13 +355,15 @@ a[href=emailcode]:hover{
     flex-direction: column;
     justify-content: space-between;
 }
+
 .user-info{
   display: flex;
   flex-direction: row;
   justify-content: end;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   gap: 20px;
   flex-grow: 2;
+  padding-right: 2.5%;
 }
 
 .profile-pic{
@@ -384,20 +386,21 @@ a[href=emailcode]:hover{
   max-width: 100%;
 }
 
-.wide{
-  width: 80%;
-}
+
 
 .box-black{
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   background: transparent;
   border-color: black;
+  color: black;
   border-style: solid;
   border-width: 1px;
-  padding: 5px 11.99% 5px 10px;
+  padding: 5px 10px 5px 10px;
   margin-top: 30px;
   border-radius: 10px;
+  width: 46%;
+  resize: none;
 }
 
 .box-black-big{
@@ -411,6 +414,7 @@ a[href=emailcode]:hover{
   padding: 5px 10px 5px 10px;
   margin: 6px 2% 4px 2%;
   border-radius: 10px;
+  resize: none;
 }
 
 .box-black-huge{
@@ -424,6 +428,7 @@ a[href=emailcode]:hover{
   padding: 5px 10px 10px 10px;
   margin: 5px 2% 2% 2%;
   border-radius: 10px;
+  resize: none;
 }
 
 .blk-bx-margin{
@@ -506,13 +511,31 @@ a[href=emailcode]:hover{
   border-radius: 10px;
 }
 
-#square{
+#colorPicker{
+  border: none;
   height: 100px;
   width: 100px;
-  border-style: solid;
-  border-color: black;
-  border-width: 1px;
+  border: none;
+  padding: 0;
   margin: auto;
+}
+
+input[type="color"] {
+  padding: 0;
+  border: 5px solid #DDD;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
 }
 
 select {
@@ -526,4 +549,15 @@ select {
   border-width: 1px;
   padding: 5px 11.99% 5px 10px;
   border-radius: 10px;
+}
+
+.projectNone {
+  margin: auto; 
+  margin-right: 20%;
+}
+.projectNone1 {
+  text-decoration: none; 
+  color: black; 
+  opacity: .5; 
+  width: 80%;
 }

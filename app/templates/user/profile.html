@@ -32,7 +32,11 @@
       <div class="profile_proj">
         <div class="column">
           <h3>
+            {%if g.user['mini_desc'] | trim == '' or g.user['mini_desc'] is none %}
             <p class="wide" >Petite phrase qui vous décrit.</p>
+            {%else%}
+            <p class="wide" >{{g.user['mini_desc']}}</p>
+            {%endif%}
             <p>Les projets</p>
           </h3>
           <div style="margin-left: auto; margin-right: auto;">
@@ -45,12 +49,27 @@
           </div>
         </div>
 
-        <div id="shape1">
-          <h4>
-            <span>{{g.user['name']}} {{g.user['last_name']}}</span>
-            <p>awofa</p>
-            <p>fhafoi</p>
-          </h4> 
+        <div id="shape1" style="padding: 20px;">
+          <h5>
+            <div style="line-height: 50px;">
+              <span>{{g.user['name']}} {{g.user['last_name']}}</span>
+              <p>{{g.user['email']}}</p>
+            </div>
+            <p>
+              Style d'art préféré : 
+              {%if g.user['fav_style'] | trim == '' or g.user['fav_style'] is none %}
+              Aucun style spécifié...
+              {%else%}
+              {{g.user['fav_style']}}
+              {%endif%}
+            </p>
+            <div class="lineblk"></div>
+            {%if g.user['desc'] | trim == '' or g.user['desc'] is none %}
+            <p>Aucune description...</p>
+            {%else%}
+            <span>{{g.user['desc']}}</span>
+            {%endif%}
+          </h5> 
         </div>
 
       </div>

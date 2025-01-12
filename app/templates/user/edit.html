@@ -26,35 +26,54 @@
                 </div>
             </div>
             <div id="shape2" class="content-margin">
-                <div class="around">
-                    {%if g.user['last_name'] | trim is none%}
-                    <input style="float: left;" type="text" placeholder="nom" class="box-black">
-                    {% else %}
-                    <div style="float: left;" class="box-black">{{g.user['last_name']}}</div>
-                    {% endif %}
-                    {%if g.user['name'] | trim is none%}
-                    <input style="float: right;" type="text" placeholder="prénom" class="box-black">
-                    {% else %}
-                    <div style="float: right;" class="box-black">{{g.user['name']}}</div>
-                    {% endif %}
-                </div>
-                <div class="center column">
-                    <div class="box-black-big" style="justify-content: flex-start;">{{g.user['email']}}</div>
-                    <input type="text" name="fav_style" id="fav_style" placeholder="style d'art préféré" class="box-black-big">
-                    <div class="lineblk"></div>
-                    <textarea type="text" name="mini_desc" id="mini_desc" placeholder="moi en une phrase" maxlength="30" rows="1" class="box-black-big blk-bx-margin" onkeypress="preventNewLine(event)" style="resize: none;"></textarea>
-                    <textarea type="text" name="desc" id="desc" placeholder="description" maxlength="300" rows="13" class="box-black-huge blk-bx-margin" style="resize: none;"></textarea>
-                    <input type="submit" value="Sauvegarder" class="button">
-                </div>
+                <form method="post">
+                    <div class="around">
+                        {%if g.user['last_name'] | trim == '' or g.user['last_name'] is none %}
+                        <textarea style="float: left;" name="last_name" id="last_name" rows="1" class="box-black" onkeypress="preventNewLine(event)"></textarea>
+                        {% else %}
+                        <textarea style="float: left;" name="last_name" id="last_name" rows="1" class="box-black" onkeypress="preventNewLine(event)">{{g.user['last_name']}}</textarea>
+                        {% endif %}
+
+                        {%if g.user['name'] | trim == '' or g.user['name'] is none %}
+                        <textarea style="float: right;" name="name" id="name" rows="1" class="box-black" onkeypress="preventNewLine(event)"></textarea>
+                        {% else %}
+                        <textarea style="float: right;" name="name" id="name" rows="1" class="box-black" onkeypress="preventNewLine(event)">{{g.user['name']}}</textarea>
+                        {% endif %}
+                    </div>  
+                    <div class="center column">
+                        <div class="box-black-big" style="justify-content: flex-start;">{{g.user['email']}}</div>
+                        {%if g.user['fav_style'] | trim == '' or g.user['fav_style'] is none %}
+                        <textarea type="text" name="fav_style" id="fav_style" placeholder="style d'art préféré" maxlength="30" rows="1" class="box-black-big" onkeypress="preventNewLine(event)"></textarea>
+                        {%else%}
+                        <textarea type="text" name="fav_style" id="fav_style" placeholder="style d'art préféré" maxlength="30" rows="1" class="box-black-big" onkeypress="preventNewLine(event)">{{g.user['fav_style']}}</textarea>
+                        {% endif %}
+
+                        <div class="lineblk"></div>
+
+                        {%if g.user['mini_desc'] | trim == '' or g.user['mini_desc'] is none %}
+                        <textarea type="text" name="mini_desc" id="mini_desc" placeholder="moi en une phrase" maxlength="30" rows="1" class="box-black-big blk-bx-margin" onkeypress="preventNewLine(event)"></textarea>
+                        {%else%}
+                        <textarea type="text" name="mini_desc" id="mini_desc" placeholder="moi en une phrase" maxlength="30" rows="1" class="box-black-big blk-bx-margin" onkeypress="preventNewLine(event)">{{g.user['mini_desc']}}</textarea>
+                        {% endif %}
+                        
+                        {%if g.user['desc'] | trim == '' or g.user['desc'] is none %}
+                        <textarea type="text" name="desc" id="desc" placeholder="description" maxlength="400" rows="13" class="box-black-huge blk-bx-margin"></textarea>
+                        {% else %}
+                        <textarea type="text" name="desc" id="desc" placeholder="description" maxlength="400" rows="13" class="box-black-huge blk-bx-margin">{{g.user['desc']}}</textarea>
+                        {% endif %}
+                        <input type="submit" value="Sauvegarder" class="button"></input>
+                        
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script>
-        function preventNewLine(event) {
-            if (event.key === "Enter" || event.keyCode === 13) {
-                event.preventDefault();
-            }
+<script>
+    function preventNewLine(event) {
+        if (event.key === "Enter" || event.keyCode === 13) {
+            event.preventDefault();
         }
-    </script>
+    }
+</script>
 {% endblock %}

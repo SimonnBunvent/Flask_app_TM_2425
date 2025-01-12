@@ -17,7 +17,7 @@ def createproject():
         db = get_db()
 
 
-        if name and description and deadline and no_participants:
+        if name and description and deadline and no_participants and color:
             db.execute("INSERT INTO galleries (name, description, no_participants, deadline, color) VALUES (?, ?, ?, ?, ?)",(name, description, no_participants, deadline, color))
             db.commit()
             close_db()
@@ -26,44 +26,19 @@ def createproject():
     else:
         return render_template('create/createproject.html')   
     
-def user_gallery():
-    if request.method =='GET':
 
-        username = request.args('username')
-        name = request.args('name')
-
-        db = get_db()
-
-        query = '''
-        SELECT g.*
-        FROM galleries g
-        JOIN has_u_g ON g.id = ug.FK_gallery
-        JOIN users u ON u.id = ug.FK_user
-        WHERE u.username = ? AND g.name = ?
-        '''
-        gallery = db.execute(query, (name, username)).fetchone()
-        close_db()
-        if gallery:
-            return{'gallery': dict(gallery)}, 200
-        else:
-            return {'error': 'No gallery found for this user'}, 404
+    
         
-
 @create_bp.route('/send', methods=('GET', 'POST'))
 def send():
-    if request.method == 'POST':
+    return render_template('create/send.html')
 
-        id_gallery = request.form['id_gallery']
+def user_gallery():
+    id_user = session.get('id_user')
+    id_gallery = request.form.get('id_gallery')
 
-        db = get_db()
+    db = get_db()
 
-        gallery = db.execute('SELECT * FROM galleries WHERE id_gallery =?', (id_gallery,)).fetchone()
-        close_db()
-
-        if gallery:
-            id_gallery = gallery['id_gallery']
-            return f"YESYESYES"
-        else:
-            return f"NONONO"
-    else:
-        return render_template('create/send.html')  
+    db.execute("INSERT INTO has_u_g (id_user, id_gallery) VALUES (?, ?)",(id_user, id_gallery))
+    db.commit()
+    

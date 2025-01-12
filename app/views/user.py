@@ -20,30 +20,18 @@ def edit_profile():
     id_user = session.get('id_user')
 
     if request.method == 'POST':
+        last_name = request.form['last_name']
+        name = request.form['name']
         fav_style = request.form['fav_style']
         mini_desc = request.form['mini_desc']
         desc = request.form['desc']
 
         db = get_db()
 
-        if fav_style or mini_desc or desc:
-            db.execute("""
-                UPDATE users 
-                SET 
-                    fav_style = COALESCE(?, fav_style), 
-                    mini_desc = COALESCE(?, mini_desc), 
-                    desc = COALESCE(?, desc)
-                WHERE id_user = ?
-            """, (fav_style, mini_desc, desc, id_user))
-            
-            if g.user['fav_style'] is None:
-                db.execute("INSERT INTO users (fav_style) VALUES(?)", (fav_style))
-            if g.user['mini_desc'] is None:
-                db.execute("INSERT INTO users (mini_desc) VALUES(?)", (mini_desc))
-            if  g.user['desc'] is None:
-                db.execute("INSERT INTO users (desc) VALUES(?)", (desc))
+        if fav_style  or mini_desc or desc:
+            db.execute("UPDATE users SET last_name = ?, name = ?, fav_style = ?, mini_desc = ?, desc = ? WHERE id_user = ?", (last_name, name, fav_style, mini_desc, desc, id_user))
             db.commit()
             close_db()
-            return redirect(url_for("user.edit"))
+            return redirect(url_for("user.edit_profile"))
     else:
         return render_template('user/edit.html')
