@@ -7,21 +7,19 @@ Envoyer l'email
 {% block content %}
 <div class="block" style=" width: 40%;">
     <h5 class="center" style="font-size: 200%; font-weight: 400; padding-left: 10%a;"> Envoyer à :</h5>
-    <input type="email" class="box-black center" style="padding: 100%;">
+    <input type="email" class="box-black" style="width: 100%;">
     <div class="lineblk" style="margin-left: 20%; margin-right: 20%;"></div>
-    <h5 class="center">Titre</h5>
+    <h5 class="center">{{ g.gallery['name'] }}</h5>
     <div class="row">
-        <div class="box-black-huge column" style="width: 50%;">
+        <div class="box-black-huge column" style="width: 50%; justify-content: start;">
             <h5 style="text-decoration: underline;">Description</h5>
-            <h5 style="opacity: 0.5;">Thème, style</h5>
+            <h5>{{ g.gallery['description'] }}</h5>
         </div>
         <div class="column">
-            <h5>Format : </h5>
-            <h5>Participants :</h5>
-            <h5>Delai :</h5>
-            <h5>Couleur de l'arrière-plan :
-                <span>{{g.gallery['desc']}}</span>
-            </h5>
+            <h5>Format : {{g.gallery['format']}}</h5>
+            <h5>Participants : {{g.gallery['no_participants']}}</h5>
+            <h5>Délai : {{ g.gallery['deadline'] }}</h5>
+            <h5>Couleur de l'arrière-plan : {{g.gallery['color']}}</h5>
         </div>
     </div>
     <button onclick="location.href='{{ url_for('projects.projects') }}'" class="center button">
