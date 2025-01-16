@@ -38,32 +38,19 @@ Projets en progrès
         
         <h2 style="float: right;">Mes projets actuels</h2>
     </div>
+
     <h1>Your Galleries</h1>
 
-    {% if galleries %}
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Deadline</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for gallery in galleries %}
-                    <tr>
-                        <td>{{ gallery['id_gallery'] }}</td>
-                        <td>{{ gallery['name'] }}</td>
-                        <td>{{ gallery['description'] }}</td>
-                        <td>{{ gallery['deadline'] }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No galleries found.</p>
-    {% endif %}
+{% if galleries %}
+    <ul>
+        message
+        {% for gallery in galleries %}
+            <li>{{ gallery['name'] }} - {{ gallery['description'] }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No galleries found.</p>
+{% endif %}
     
 </div>
 {% endblock %}

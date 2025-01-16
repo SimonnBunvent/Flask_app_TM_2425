@@ -7,16 +7,7 @@ projects_bp = Blueprint('projects', __name__, url_prefix='/projects')
 
 @projects_bp.route('/')
 def projects():
-    hello_galleries()
-    return render_template('projects/projects.html')
-
-@projects_bp.route('/project1')
-def project():
-    return render_template('projects/project.html')
-
-def hello_galleries():
-    id_user = session.get('id_user')  # Get the user's ID from the session
-
+    id_user = session.get('id_user')
     if not id_user:
         return "Error: User not logged in.", 400
 
@@ -32,10 +23,11 @@ def hello_galleries():
     # Get gallery details if needed
     galleries = db.execute(
             """
-            SELECT g.id_gallery, g.name, g.description 
-            FROM galleries g
-            JOIN has_u_g hug ON g.id_gallery = hug.FK_gallery
-            WHERE hug.FK_user = ?
+            SELECT galleries.*
+            FROM galleries
+            INNER JOIN has_u_g ON galleries.id_gallery = has_u_g.FK_gallery
+            WHERE has_u_g.FK_user = ?
+
             """, 
             (id_user,)
         ).fetchall()
@@ -49,3 +41,11 @@ def hello_galleries():
 
     # "Hello world!" messages or gallery names
     messages = [f"Gallery: {gallery['name']}" for gallery in galleries]
+    close_db()
+    return render_template('projects/projects.html')
+
+@projects_bp.route('/project1')
+def project():
+    return render_template('projects/project.html')
+
+    

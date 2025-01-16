@@ -46,6 +46,23 @@ def send():
 
     return render_template('create/send.html')  
 
+@create_bp.route('/delete_last_gallery', methods=('GET', 'POST'))
+def delete_last_gallery():
+    id_user = session.get('id_user')
+
+    if not id_user:
+        flash("You must be logged in to delete a gallery.", "error")
+        return redirect(url_for('create.createproject'))
+
+    db = get_db()
+    id_gallery = db.execute("SELECT id_gallery FROM galleries ORDER BY id_gallery DESC LIMIT 1").fetchone()
+
+    if id_gallery:
+        id_gallery = id_gallery[0]
+        db.execute("DELETE FROM galleries WHERE id_gallery = ?", (id_gallery,))
+        db.commit()
+
+    return redirect(url_for('create.createproject'))
 
 def user_gallery():
     id_user = session.get('id_user')
@@ -62,3 +79,4 @@ def user_gallery():
     db.execute("INSERT INTO has_u_g (FK_user, FK_gallery) VALUES (?, ?)", (id_user, id_gallery))
     db.commit()
     return redirect(url_for("create.send"))
+
