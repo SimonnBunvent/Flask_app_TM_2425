@@ -42,7 +42,7 @@ def projects():
     # "Hello world!" messages or gallery names
     messages = [f"Gallery: {gallery['name']}" for gallery in galleries]
     close_db()
-    return render_template('projects/projects.html')
+    return render_template('projects/projects.html', galleries=galleries)
 
 @projects_bp.route('/project1')
 def project():
