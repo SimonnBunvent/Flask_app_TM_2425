@@ -6,51 +6,55 @@ Projets en progrès
 
 {% block content %}
 <div class="column">
-    <div class="row">
-        
-        <div class="block row" style="width: 70%; margin-right: 10%; padding-top: 0px;">
-            <div class="column">
-                <h5 style="padding-left: 1%; ">Titre</h5>
-                <div class="box-black-huge" style="width: 50%; height: auto;">
-                    <h5 style="opacity: .5; float: left;">Description</h5>
-                </div>
-
-                
-
-                {%if g.user['profile_pic'] is none%}
-                <a href="{{url_for('user.show_profile')}}">
-                    <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="width: 5%;">
-                </a>
-                {% else %}
-                <a href="{{url_for('user.show_profile')}}">
-                    <span style="color: black;">{{g.user['profile_pic']}}</span>
-                </a>
-                {% endif %}
-                <span>{{ g.user['username'] }}</span>
-                <button class="button" style="margin-left: 0%;">
-                    Publier
-                </button>
-            </div>
-            
-                <h3 style="margin: auto; margin-right: 20%;"><a href="{{url_for('projects.project')}}" style="text-decoration: none; color: white;">Aucun projet n'a été déposé...</a></h3>
-            
-        </div>
-        
-        <h2 style="float: right;">Mes projets actuels</h2>
-    </div>
-
-    <h1>Your Galleries</h1>
-
 {% if galleries %}
-    <ul>
-        message
-        {% for gallery in galleries %}
-            <li>{{ gallery['name'] }} - {{ gallery['description'] }}</li>
-        {% endfor %}
-    </ul>
+    {% for gallery in galleries %}
+        <div class="row" style="margin-bottom: 50px;">
+            {%if loop.first%}
+            <div class="block row" style="width: 100%; margin-right: 10%; padding-top: 10px;">
+            {%else%}
+            <div class="block row" style="padding-top: 10px; width: 80%; margin-left: 0px;">
+            {%endif%}
+                <div class="column">
+                    <h5 style="padding-left: 1%; ">{{gallery['name']}}</h5>
+                    {%if loop.first%}
+                    <div class="box-black-huge bbh-text" style="width: 50%;">
+                    {%else%}
+                    <div class="box-black-huge bbh-text" style="width: 45%;">
+                    {%endif%}
+                        {%if gallery['description'] | trim == '' or gallery['description'] is none %}
+                        <h5 style="opacity: .5; margin-left: 0px;">Description</h5>
+                        {%else%}
+                        <h5 style="opacity: .5; margin-left: 0px;">{{gallery['description']}}</h5>
+                        {%endif%}
+                    </div>
+                    <div class="column" style="margin-left: 10px;">
+                    {%if g.user['profile_pic'] is none%}
+                    <a href="{{url_for('user.show_profile')}}">
+                        <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="width: 5%;">
+                    </a>
+                    {% else %}
+                    <a href="{{url_for('user.show_profile')}}">
+                        <span style="color: black;">{{g.user['profile_pic']}}</span>
+                    </a>
+                    {% endif %}
+                    <span>{{ g.user['username'] }}</span>
+                    </div>
+                    <button class="button" style="margin-left: 0%; padding: 1% 2%;">
+                        Publier
+                    </button>
+                </div>
+                    <h3 style="margin: auto; margin-right: 20%;"><a href="{{url_for('projects.project')}}" style="text-decoration: none; color: white;">Aucun projet n'a été déposé...</a></h3>
+            </div>
+            {%if loop.first%}
+            <h2 style="float: right;">Mes projets actuels</h2>
+            {%endif%}
+        </div>
+    {% endfor %}
 {% else %}
-    <p>No galleries found.</p>
+    <div class="row" style="width: 70%; margin-right: 10%;">
+        <p>Vous n'avez crée aucune galerie...</p>
+    </div>
+    <h2 style="float: right;">Mes projets actuels</h2>
 {% endif %}
-    
 </div>
 {% endblock %}

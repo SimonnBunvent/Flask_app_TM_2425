@@ -20,10 +20,10 @@
                     <li><a href="{{ url_for('artists.people') }}">artistes</a></li>
                     <li><a href="{{ url_for('gallery.artworks') }}">oeuvres</a></li>
                 {% if g.user %}                
-                    <li><a href="{{ url_for('create.createproject') }}">créer un projet</a></li>
+                    <li><a href="{{ url_for('create.createproject') }}">créer projet</a></li>
                     <li><a href="{{ url_for('projects.projects') }}">mes projets</a></li>   
                 {% else %}
-                    <li><a href="{{ url_for('auth.login') }}">créer un projet</a></li>
+                    <li><a href="{{ url_for('auth.login') }}">créer projet</a></li>
                     <li><a href="{{ url_for('auth.register') }}">s'enregistrer</a>
                     <li><a href="{{ url_for('auth.login') }}">se connecter</a>
                 {% endif %}

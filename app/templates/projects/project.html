@@ -7,10 +7,10 @@ Projets en progrès
 {% block content %}
 <div class="column">
     <div class="row">
-        <div class="block row" style="width: 100%; padding-top: 0px; height: 100%;">
+        <div class="block row" style="width: 100%; padding-top: 10px;">
             <div class="column">
-                <div class="box-black-huge" style="size: 50%; height: auto;">
-                    <h5 style="opacity: .5; float: left;">Description</h5>
+                <div class="box-black-huge bbh-text" style="width: 50%;">
+                    <h5 style="opacity: .5; margin-left: 0px;">Description</h5>
                 </div>
                 {%if g.user['profile_pic'] is none%}
                 <a href="{{url_for('user.show_profile')}}">
