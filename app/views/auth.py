@@ -24,9 +24,9 @@ def register():
 
         # Si le nom d'utilisateur et le mot de passe ont bien une valeur
         # on essaie d'insérer l'utilisateur dans la base de données
-        if username and password:
+        if username and password and email:
             try:
-                db.execute("INSERT users SET (username, password, email, name, last_name) VALUES (?, ?, ?, ?, ?)",(username, generate_password_hash(password), email, name, last_name))
+                db.execute("INSERT INTO users (username, password, email, name, last_name) VALUES (?, ?, ?, ?, ?)",(username, generate_password_hash(password), email, name, last_name))
                 # db.commit() permet de valider une modification de la base de données
                 db.commit()
                 # On ferme la connexion à la base de données pour éviter les fuites de mémoire
