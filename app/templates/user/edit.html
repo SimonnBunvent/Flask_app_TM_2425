@@ -13,12 +13,16 @@
                 </h2>
                 <div class="row" style="margin: 2%;">
                     {%if g.user['profile_pic'] is none%}
-                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                    <input type="file" id="profile-pic">
+                        <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                    </input>
                     {% else %}
-                    <span>{{g.user['profile_pic']}}</span>
+                    <input type="file" id="profile-pic">
+                        <span>{{g.user['profile_pic']}}</span>
+                    </input>
                     {% endif %}
                     <div style="margin-left: 50px;">
-                        <h3>    
+                        <h3>
                             <span>{{ g.user['username'] }}</span>
                         </h3>
                         <a href="{{ url_for('auth.logout') }}" class="small_link">déconnexion</a>

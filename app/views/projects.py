@@ -8,8 +8,6 @@ projects_bp = Blueprint('projects', __name__, url_prefix='/projects')
 @projects_bp.route('/')
 def projects():
     id_user = session.get('id_user')
-    if not id_user:
-        return "Error: User not logged in.", 400
 
     db = get_db()
 
