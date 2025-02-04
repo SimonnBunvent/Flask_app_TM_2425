@@ -12,15 +12,17 @@
                     Changer mon profil
                 </h2>
                 <div class="row" style="margin: 2%;">
-                    {%if g.user['profile_pic'] is none%}
-                    <input type="file" id="profile-pic">
-                        <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-                    </input>
-                    {% else %}
-                    <input type="file" id="profile-pic">
-                        <span>{{g.user['profile_pic']}}</span>
-                    </input>
-                    {% endif %}
+                    <input type="file" id="profile_pic" accept="image/*" style="display: none;">
+                    <label for="pp_file">
+                        <div class="pp_container">
+                            {%if g.user['profile_pic'] is none%}
+                            <img id="p-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                            {% else %}
+                            <img id="p-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                            {% endif %}
+                            <i class='fas fa-pen-nib'></i>
+                        </div>
+                    </label>
                     <div style="margin-left: 50px;">
                         <h3>
                             <span>{{ g.user['username'] }}</span>
@@ -73,11 +75,17 @@
         </div>
     </div>
 
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script>
-    function preventNewLine(event) {
-        if (event.key === "Enter" || event.keyCode === 13) {
-            event.preventDefault();
-        }
+document.getElementById('pp_file').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('p-pic').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
     }
+});
 </script>
 {% endblock %}

@@ -25,11 +25,12 @@ def edit_profile():
         fav_style = request.form['fav_style']
         mini_desc = request.form['mini_desc']
         desc = request.form['desc']
+        profile_pic = request.files['pp_file']
 
         db = get_db()
 
         if fav_style  or mini_desc or desc:
-            db.execute("UPDATE users SET last_name = ?, name = ?, fav_style = ?, mini_desc = ?, desc = ? WHERE id_user = ?", (last_name, name, fav_style, mini_desc, desc, id_user))
+            db.execute("UPDATE users SET last_name = ?, name = ?, fav_style = ?, mini_desc = ?, desc = ?, profile_pic = ? WHERE id_user = ?", (last_name, name, fav_style, mini_desc, desc, id_user, profile_pic))
             db.commit()
             close_db()
             return redirect(url_for("user.edit_profile"))
