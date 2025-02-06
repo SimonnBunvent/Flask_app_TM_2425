@@ -17,10 +17,10 @@
                             <input type="file" id="profile_pic" name="profile_pic" accept="image/*" style="display: none;">
                             <label for="profile_pic">
                                 <div class="pp_container">
-                                    {%if g.user['profile_pic'] is none%}
-                                    <img id="p-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                                    {% if user.profile_pic is none or user.profile_pic == '' %}
+                                        <img id="p-pic" src="{{ url_for('static', filename='imgs/profile-pic.webp') }}" alt="default profile pic">
                                     {% else %}
-                                    <img src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                                        <img src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
                                     {% endif %}
                                     <i class='fas fa-pen-nib'></i>
                                 </div>
