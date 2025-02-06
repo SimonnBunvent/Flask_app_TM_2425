@@ -7,32 +7,34 @@
 {% block content %}
     <div class="content-margin">
         <div>
-            </div class="column">
-                <h2>
-                    Changer mon profil
-                </h2>
-                <div class="row" style="margin: 2%;">
-                    <input type="file" id="profile_pic" accept="image/*" style="display: none;">
-                    <label for="pp_file">
-                        <div class="pp_container">
-                            {%if g.user['profile_pic'] is none%}
-                            <img id="p-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-                            {% else %}
-                            <img id="p-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-                            {% endif %}
-                            <i class='fas fa-pen-nib'></i>
+            <form method="post" enctype="multipart/form-data">
+                </div class="column">
+                    <h2>
+                        Changer mon profil  
+                    </h2>
+                    <div class="row" style="margin: 2%;">
+                        
+                            <input type="file" id="profile_pic" name="profile_pic" accept="image/*" style="display: none;">
+                            <label for="profile_pic">
+                                <div class="pp_container">
+                                    {%if g.user['profile_pic'] is none%}
+                                    <img id="p-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                                    {% else %}
+                                    <img src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                                    {% endif %}
+                                    <i class='fas fa-pen-nib'></i>
+                                </div>
+                            </label>
+                        
+                        <div style="margin-left: 50px;">
+                            <h3>
+                                <span>{{ g.user['username'] }}</span>
+                            </h3>
+                            <a href="{{ url_for('auth.logout') }}" class="small_link">déconnexion</a>
                         </div>
-                    </label>
-                    <div style="margin-left: 50px;">
-                        <h3>
-                            <span>{{ g.user['username'] }}</span>
-                        </h3>
-                        <a href="{{ url_for('auth.logout') }}" class="small_link">déconnexion</a>
                     </div>
                 </div>
-            </div>
-            <div id="shape2" class="content-margin">
-                <form method="post">
+                <div id="shape2" class="content-margin">
                     <div class="around">
                         {%if g.user['last_name'] | trim == '' or g.user['last_name'] is none %}
                         <textarea style="float: left;" name="last_name" id="last_name" rows="1" class="box-black" onkeypress="preventNewLine(event)"></textarea>
@@ -70,14 +72,14 @@
                         <input type="submit" value="Sauvegarder" class="button"></input>
                         
                     </div>
-                </form>
-            </div>
+                </div> 
+            </form>
         </div>
     </div>
 
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script>
-document.getElementById('pp_file').addEventListener('change', function(event) {
+document.getElementById('profile_pic').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
