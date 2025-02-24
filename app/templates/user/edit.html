@@ -20,11 +20,11 @@
                                     {% if user.profile_pic is none or user.profile_pic == '' %}
                                         <img id="p-pic" src="{{ url_for('static', filename='imgs/profile-pic.webp') }}" alt="default profile pic">
                                     {% else %}
-                                        <img src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                                        <img id="p-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
                                     {% endif %}
                                     <i class='fas fa-pen-nib'></i>
                                 </div>
-                            </label>yx
+                            </label>
                         
                         <div style="margin-left: 50px;">
                             <h3>
