@@ -21,11 +21,13 @@
               <a href="{{ url_for('user.edit_profile')}}" class="small_link">changer mon profil</a>
             </ul>
           </div>
-          {%if g.user['profile_pic'] is none%}
-          <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-          {% else %}
-          <img class="profile-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
-          {% endif %}
+          <div class="pp_container1">
+            {% if user.profile_pic is none or user.profile_pic == '' %}
+                <img id="p-pic" src="{{ url_for('static', filename='imgs/profile-pic.webp') }}" alt="default profile pic">
+            {% else %}
+                <img id="p-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+            {% endif %}
+        </div>
         </div> 
       </div>
       

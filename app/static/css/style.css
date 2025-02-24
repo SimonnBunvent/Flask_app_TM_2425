@@ -165,8 +165,6 @@ header{
 }
     
 #header-nav-img>a{
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -368,7 +366,6 @@ a[href=emailcode]:hover{
 
 .profile-pic{
   width: 100px;
-  height: 100px;
   border-radius: 50%;
 }
 
@@ -382,6 +379,17 @@ a[href=emailcode]:hover{
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.pp_container1 {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pp_container img {

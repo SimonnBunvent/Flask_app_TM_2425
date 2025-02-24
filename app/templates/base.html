@@ -29,14 +29,14 @@
                 {% endif %}
             </ul>
             
-            <div id="header-nav-img" class="profile-pic">
+            <div class="pp_container" style="width: 60px; height: 60px; margin-top: 20px;">
                 {%if g.user['profile_pic'] is none%}
                     <a href="{{url_for('user.show_profile')}}">
-                        <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                        <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
                     </a>
                 {% else %}
                     <a href="{{url_for('user.show_profile')}}">
-                        <img id="p-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                        <img class="profile-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
                     </a>
                 {% endif %}
             </div>
