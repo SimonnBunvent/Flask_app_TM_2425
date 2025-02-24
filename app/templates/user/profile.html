@@ -22,9 +22,9 @@
             </ul>
           </div>
           {%if g.user['profile_pic'] is none%}
-            <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+          <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
           {% else %}
-            <span>{{g.user['profile_pic']}}</span>
+          <img class="profile-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
           {% endif %}
         </div> 
       </div>
