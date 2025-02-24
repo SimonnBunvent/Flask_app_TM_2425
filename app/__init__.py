@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from app.utils import *
+from app.db.db import get_db
 
 # Importation des blueprints de l'application
 # Chaque blueprint contient des routes pour l'application
@@ -30,5 +31,12 @@ def create_app():
     app.register_blueprint(gallery_bp)
     app.register_blueprint(projects_bp)
     
+    @app.context_processor
+    def inject_user():
+        user = None
+        if 'id_user' in session:
+            db = get_db()
+            user = db.execute("SELECT * FROM users WHERE id_user = ?", (session['id_user'],)).fetchone()
+        return dict(user=user)
     # On retourne l'instance de l'application Flask
     return app
