@@ -13,8 +13,14 @@
         <div class="row around" style="margin-top: 50px;">
         {%endif%}
           <div class="column artist-work">
-            <div class="row start">
-              <img class="round artist_pfp" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+            <div class="row start ">
+              <div class="artist_pfp pp_container">
+                {% if user.profile_pic is none or user.profile_pic == '' %}
+                <img src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                {% else %}
+                <img src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                {% endif %}
+              </div>
               <p style="margin-top: auto;">{{user['username']}}</p>
             </div>
             <img src="/static/imgs/ex.jpg">

@@ -29,7 +29,7 @@ def edit_profile():
     db = get_db()
 
     user = db.execute("SELECT profile_pic FROM users WHERE id_user = ?", (id_user,)).fetchone()
-    file_path = user['profile_pic'] if user and user['profile_pic'] else None  # Ensure file_path is always defined
+    file_path = user['profile_pic'] if user and user['profile_pic'] else None
 
     if request.method == 'POST':
         last_name = request.form['last_name']
