@@ -17,9 +17,9 @@ Projets en progrès
                 <div class="column">
                     <h5 style="padding-left: 1%; ">{{gallery['name']}}</h5>
                     {%if loop.first%}
-                    <div class="box-black-huge bbh-text" style="width: 50%;">
+                    <div class="box-black-huge bbh-text" style="min-width: 100%;">
                     {%else%}
-                    <div class="box-black-huge bbh-text" style="width: 45%;">
+                    <div class="box-black-huge bbh-text" style="min-width: 45%;">
                     {%endif%}
                         {%if gallery['description'] | trim == '' or gallery['description'] is none %}
                         <h5 style="opacity: .5; margin-left: 0px;">Description</h5>
@@ -28,15 +28,13 @@ Projets en progrès
                         {%endif%}
                     </div>
                     <div class="column" style="margin-left: 10px;">
-                    {%if g.user['profile_pic'] is none%}
-                    <a href="{{url_for('user.show_profile')}}">
-                        <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="width: 5%;">
-                    </a>
-                    {% else %}
-                    <a href="{{url_for('user.show_profile')}}">
-                        <span style="color: black;">{{g.user['profile_pic']}}</span>
-                    </a>
-                    {% endif %}
+                        <div class="artist_pfp pp_container">
+                        {% if user.profile_pic is none or user.profile_pic == '' %}
+                            <img id="p-pic" src="{{ url_for('static', filename='imgs/profile-pic.webp') }}" alt="default profile pic">
+                        {% else %}
+                            <img id="p-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                        {% endif %}
+                        </div>
                     <span>{{ g.user['username'] }}</span>
                     </div>
                     <button class="button" style="margin-left: 0%; padding: 1% 2%;">

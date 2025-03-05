@@ -36,7 +36,7 @@
                     </a>
                 {% else %}
                     <a href="{{url_for('user.show_profile')}}">
-                        <img class="profile-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
+                        <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
                     </a>
                 {% endif %}
             </div>

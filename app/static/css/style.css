@@ -510,6 +510,7 @@ a[href=emailcode]:hover{
 }
 
 .button{
+  size: 20%;
   background-image: linear-gradient(to right, #FF1058 , #CE1A1A);
   color: white;
   border: none;
@@ -626,4 +627,11 @@ select {
   color: black; 
   opacity: .5; 
   width: 80%;
+}
+
+#selectedUsers {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 }

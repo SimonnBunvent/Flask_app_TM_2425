@@ -9,8 +9,6 @@ create_bp = Blueprint('create', __name__, url_prefix='/create')
 @create_bp.route('/', methods=('GET', 'POST'))
 def createproject():
 
-     
-    
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
@@ -37,14 +35,14 @@ def send():
 
     db = get_db()
     g.gallery = db.execute("SELECT galleries.* FROM galleries JOIN has_u_g ON galleries.id_gallery = has_u_g.FK_gallery WHERE has_u_g.FK_user = ? ORDER BY galleries.id_gallery DESC LIMIT 1", (id_user,)).fetchone()
+    all_users = db.execute("SELECT username FROM users").fetchall()
     db.commit()
-    close_db()
 
     if g.gallery is None:
         flash("No gallery found for this user.", "error")
         return redirect(url_for('create.createproject'))
 
-    return render_template('create/send.html')  
+    return render_template('create/send.html', all_users=all_users)  
 
 @create_bp.route('/delete_last_gallery', methods=('GET', 'POST'))
 def delete_last_gallery():
