@@ -26,7 +26,10 @@ def projects():
     return render_template('projects/projects.html', galleries=galleries)
 
 @projects_bp.route('/project1')
-def project():
-    return render_template('projects/project.html')
+def project(id_gallery, name):
+    id_user = session.get('id_user')
+    db = get_db()
+    gallery = db.execute("SELECT * FROM galleries WHERE id_gallery =?, name = ?", (id_gallery, name,)).fetchone()
+    return render_template('projects/project.html', gallery=gallery)
 
     

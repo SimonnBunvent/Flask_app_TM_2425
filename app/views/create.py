@@ -15,10 +15,10 @@ def createproject():
         deadline = request.form['deadline']
         no_participants = request.form['no_participants']
         color = request.form['color']
-        id_user = session.get('id_user')
+        selected_format = request.form['format']
         db = get_db()
 
-        db.execute("INSERT INTO galleries (name, description, no_participants, deadline, color) VALUES (?, ?, ?, ?, ?)",(name, description, no_participants, deadline, color))
+        db.execute("INSERT INTO galleries (name, description, no_participants, deadline, color, format) VALUES (?, ?, ?, ?, ?, ?)",(name, description, no_participants, deadline, color, selected_format,))
         db.commit()
 
         user_gallery()
@@ -46,12 +46,6 @@ def send():
 
 @create_bp.route('/delete_last_gallery', methods=('GET', 'POST'))
 def delete_last_gallery():
-    id_user = session.get('id_user')
-
-    if not id_user:
-        flash("You must be logged in to delete a gallery.", "error")
-        return redirect(url_for('create.createproject'))
-
     db = get_db()
     id_gallery = db.execute("SELECT id_gallery FROM galleries ORDER BY id_gallery DESC LIMIT 1").fetchone()
 

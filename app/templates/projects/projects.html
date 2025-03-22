@@ -16,11 +16,7 @@ Projets en progrès
             {%endif%}
                 <div class="column">
                     <h5 style="padding-left: 1%; ">{{gallery['name']}}</h5>
-                    {%if loop.first%}
-                    <div class="box-black-huge bbh-text" style="min-width: 100%;">
-                    {%else%}
-                    <div class="box-black-huge bbh-text" style="min-width: 45%;">
-                    {%endif%}
+                    <div class="box-black-huge bbh-text" style="min-width: 250px;">
                         {%if gallery['description'] | trim == '' or gallery['description'] is none %}
                         <h5 style="opacity: .5; margin-left: 0px;">Description</h5>
                         {%else%}

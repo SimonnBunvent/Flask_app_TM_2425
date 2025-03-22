@@ -9,42 +9,55 @@ Projets en progrès
     <div class="row">
         <div class="block row" style="width: 100%; padding-top: 10px;">
             <div class="column">
-                <div class="box-black-huge bbh-text" style="width: 50%;">
+                <div class="box-black-huge bbh-text" style="width: 300px;">
                     <h5 style="opacity: .5; margin-left: 0px;">Description</h5>
                 </div>
-                {%if g.user['profile_pic'] is none%}
-                <a href="{{url_for('user.show_profile')}}">
-                    <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="width: 50px;">
-                </a>
-                {% else %}
-                <a href="{{url_for('user.show_profile')}}">
-                    <span style="color: black;">{{g.user['profile_pic']}}</span>
-                </a>
-                {% endif %}
+                <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
+                    {%if g.user['profile_pic'] is none%}
+                        <a href="{{url_for('user.show_profile')}}">
+                            <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                        </a>
+                    {% else %}
+                        <a href="{{url_for('user.show_profile')}}">
+                            <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+                        </a>
+                    {% endif %}
+                </div>
                 <span>{{ g.user['username'] }}</span>
             </div>
-                <h3 class="projectNone"><a href="{{url_for('projects.project')}}" class="projectNone1">Aucun projet n'a été déposé...</a></h3> 
+            <h3 class="projectNone">
+                <a href="{{url_for('projects.project')}}" class="projectNone1">Aucun projet n'a été déposé...</a>
+            </h3> 
         </div>
         <div class="column" >
             <h2 style="float: left;  margin-left:5%;">Titre</h2>
             <div class="block column" style="width: 400px;">
-                <div class="row" style="width: auto; height: auto;">
-                    <div class="box-black-huge">
-                        <h5 style="opacity: .5; width: 250px;">{{g.user['desc']}}</h5>
-                    </div>
+                <div class="row">
+                        <div class="box-black-huge">
+                            <h5 style="opacity: .5; width: 250px;">{{g.gallery['description']}}</h5>
+                        </div>
+                    <div class="pp_container1" style="width: 50px; height: 50px; margin-left: 20px;">
                         {%if g.user['profile_pic'] is none%}
-                        <a href="{{url_for('user.show_profile')}}">
-                            <img class="round" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="width: 50px; margin: 10px;">
-                        </a>
+                            <a href="{{url_for('user.show_profile')}}">
+                                <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                            </a>
                         {% else %}
-                        <a href="{{url_for('user.show_profile')}}">
-                            <span style="color: black;">{{g.user['profile_pic']}}</span>
-                        </a>
+                            <a href="{{url_for('user.show_profile')}}">
+                                <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+                            </a>
                         {% endif %}
+                    </div>
                 </div>
-                <button class="button" style="margin-left: 0%;">
-                    Publier
-                </button>
+                    <button class="button" style="margin-left: 0%;">
+                        Déposer l'oeuvre
+                    </button>
+                <div class="row">
+                    <input type="checkbox">
+                    <h5>Oeuvre déposé ?</h5>
+                </div>
+                <div class="lineblk">
+                    <h5>utilisateurs qui n'ont pas encore déposé leur oeuvre :</h5>
+                </div>
             </div>
         </div>
     </div>
