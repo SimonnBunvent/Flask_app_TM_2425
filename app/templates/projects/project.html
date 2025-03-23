@@ -9,9 +9,9 @@ Projets en progrès
     <div class="row">
         <div class="block row" style="width: 100%; padding-top: 10px;">
             <div class="column">
-                <div class="box-black-huge bbh-text" style="width: 300px;">
-                    <h5 style="opacity: .5; margin-left: 0px;">Description</h5>
-                </div>
+                <h5 style="margin-left: 0px;">
+                    <input type="text" name="img_desc" class="box-black-huge bbh-text" style="width: 300px;" placeholder="Description">
+                </h5>
                 <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
                     {%if g.user['profile_pic'] is none%}
                         <a href="{{url_for('user.show_profile')}}">
@@ -26,15 +26,15 @@ Projets en progrès
                 <span>{{ g.user['username'] }}</span>
             </div>
             <h3 class="projectNone">
-                <a href="{{url_for('projects.project')}}" class="projectNone1">Aucun projet n'a été déposé...</a>
+                <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
             </h3> 
         </div>
         <div class="column" >
-            <h2 style="float: left;  margin-left:5%;">Titre</h2>
+            <h2 style="float: left;  margin-left:5%;">{{gallery['name']}}</h2>
             <div class="block column" style="width: 400px;">
                 <div class="row">
                         <div class="box-black-huge">
-                            <h5 style="opacity: .5; width: 250px;">{{g.gallery['description']}}</h5>
+                            <h5 style="opacity: .5; width: 250px;">{{gallery['description']}}</h5>
                         </div>
                     <div class="pp_container1" style="width: 50px; height: 50px; margin-left: 20px;">
                         {%if g.user['profile_pic'] is none%}
@@ -48,9 +48,18 @@ Projets en progrès
                         {% endif %}
                     </div>
                 </div>
-                    <button class="button" style="margin-left: 0%;">
-                        Déposer l'oeuvre
-                    </button>
+                    <input type="file" id="img" name="img" accept="image/*" style="display: none;">
+                    <label for="img">
+                        <div class="button" style="margin-left: 0%; margin: auto;">
+                            Déposer l'oeuvre
+                        </div>
+                    </label>
+                    <div style="margin-top: 10px; margin-left: auto; margin-right: auto;">
+                    {% if user.profile_pic is none%}
+                    {% else %}
+                        <img id="deposit_img" src="{{ url_for('static', filename=gallery.img) }}" alt="Profile Picture">
+                    {% endif %}
+                    </div>
                 <div class="row">
                     <input type="checkbox">
                     <h5>Oeuvre déposé ?</h5>
@@ -63,4 +72,17 @@ Projets en progrès
     </div>
     <div class="shapeY"></div>
 </div>
+
+<script>
+    document.getElementById('img').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('deposit_img').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    </script>
 {% endblock %}

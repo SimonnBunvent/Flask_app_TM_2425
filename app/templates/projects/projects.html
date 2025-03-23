@@ -37,7 +37,7 @@ Projets en progrès
                         Publier
                     </button>
                 </div>
-                    <h3 style="margin: auto; margin-right: 20%;"><a href="{{url_for('projects.project')}}" style="text-decoration: none; color: white;">Aucun projet n'a été déposé...</a></h3>
+                    <h3 style="margin: auto; margin-right: 20%;"><a href="{{ url_for('projects.project', id_gallery=gallery.id_gallery, name=gallery.name) }}" style="text-decoration: none; color: white;">Aucun projet n'a été déposé...</a></h3>
             </div>
             {%if loop.first%}
             <h2 style="float: right;">Mes projets actuels</h2>

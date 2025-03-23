@@ -4,12 +4,10 @@ from app.db.db import get_db, close_db
 import os
 from werkzeug.utils import secure_filename
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-# Routes /user/...
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 UPLOAD_FOLDER = 'app/static/uploads/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
