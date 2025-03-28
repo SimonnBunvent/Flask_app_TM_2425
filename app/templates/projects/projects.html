@@ -6,8 +6,8 @@ Projets en progrès
 
 {% block content %}
 <div class="column">
-{% if galleries %}
-    {% for gallery in galleries %}
+{%if galleries%}
+    {%for gallery in galleries%}
         <div class="row" style="margin-bottom: 50px;">
             {%if loop.first%}
             <div class="block row" style="width: 100%; margin-right: 10%; padding-top: 10px;">
@@ -25,32 +25,49 @@ Projets en progrès
                     </div>
                     <div class="column" style="margin-left: 10px;">
                         <div class="artist_pfp pp_container">
-                        {% if user.profile_pic is none or user.profile_pic == '' %}
+                        {%if user.profile_pic is none or user.profile_pic == ''%}
                             <img id="p-pic" src="{{ url_for('static', filename='imgs/profile-pic.webp') }}" alt="default profile pic">
-                        {% else %}
+                        {%else%}
                             <img id="p-pic" src="{{ url_for('static', filename=user.profile_pic) }}" alt="Profile Picture">
-                        {% endif %}
+                        {%endif%}
                         </div>
                     <span>{{ g.user['username'] }}</span>
                     </div>
-                    <button class="button" style="margin-left: 0%; padding: 1% 2%;">
-                        Publier
-                    </button>
-                </div>
-                    <h3 style="margin: auto; margin-right: 20%;"><a href="{{ url_for('projects.project', id_gallery=gallery.id_gallery, name=gallery.name) }}" style="text-decoration: none; color: white;">Aucun projet n'a été déposé...</a></h3>
+                    {%if gallery.published%}
+                    <h5>Galerie publiée!</h5>
+                    {%else%}
+                    <form method="POST">
+                        <input type="hidden" name="id_gallery" value="{{ gallery['id_gallery'] }}">
+                        <input type="submit" name="publish" value="Publier" class="button">
+                    </form>
+                    {%endif%}
+                </div>  
+                <h3 style="margin: auto; margin-right: 20%;">
+                    <a href="{{ url_for('projects.project', id_gallery=gallery.id_gallery, name=gallery.name) }}" style="text-decoration: none; color: white;">
+                        {%if images[gallery.id_gallery] %}
+                        {% for image in images[gallery.id_gallery] %}
+                            <img id="deposit_img" src="{{ url_for('static', filename=image.path_to_file) }}" style="max-height: 600px; max-width: 550px; margin-left: 15%;">
+                        {%endfor%}
+                        {%else%}
+                            Aucun projet n'a été déposé...
+                        {%endif%}
+                    </a>
+                </h3>
             </div>
             {%if loop.first%}
             <h2 style="float: right;">Mes projets actuels</h2>
             {%endif%}
+            </a>
+            </h3>
         </div>
-    {% endfor %}
-{% else %}
+    {%endfor%}
+{%else%}
     <div>
     <div class="row" style="margin-right: 10%;">
         <h3 style="width: 100%; padding-top: 100px;">Vous n'avez crée aucune galerie...</h3>
         <h2 style="float: right;">Mes projets actuels</h2>
     </div>
     </div>
-{% endif %}
+{%endif%}
 </div>
 {% endblock %}

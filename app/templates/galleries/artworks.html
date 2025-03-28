@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Galeries
+{% endblock %}
+
+{% block content %}
+    <div class="column">
+      <h2>Oeuvres</h2>
+        <div class="row" style="justify-content: flex-start;">
+      {%if galleries%}
+        {%for gallery in galleries%}
+        {% if images[gallery.id_gallery] %}
+          <a href="{{ url_for('galleries.gallery') }}">
+            <img src="{{ url_for('static', filename=images[gallery.id_gallery].path_to_file) }}" alt="{{ gallery.name }}" style="height: 250px;">
+          </a>
+        {% else %}
+        {% endif %}
+        {%endfor%}
+      {%else%}
+      <h2>QUOI!? AUCUNE OEUVRE?</h2>
+      {%endif%}
+      </div>
+    </div>
+{% endblock %}

@@ -39,10 +39,9 @@ def send():
     db.commit()
 
     if g.gallery is None:
-        flash("No gallery found for this user.", "error")
         return redirect(url_for('create.createproject'))
 
-    return render_template('create/send.html', all_users=all_users)  
+    return render_template('create/send.html', all_users=all_users)
 
 @create_bp.route('/delete_last_gallery', methods=('GET', 'POST'))
 def delete_last_gallery():
@@ -62,12 +61,6 @@ def user_gallery():
     db = get_db()
     id_gallery = db.execute("SELECT id_gallery FROM galleries ORDER BY id_gallery DESC LIMIT 1").fetchone()
 
-    if id_gallery:
-        id_gallery = id_gallery[0]
-    else:
-        flash("No gallery found", "error")
-        return redirect(url_for("create.createproject"))
-    
     db.execute("INSERT INTO has_u_g (FK_user, FK_gallery) VALUES (?, ?)", (id_user, id_gallery))
     db.commit()
     return redirect(url_for("create.send"))

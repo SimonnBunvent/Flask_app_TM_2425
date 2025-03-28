@@ -10,7 +10,7 @@ from app.views.auth import auth_bp
 from app.views.artists import artists_bp
 from app.views.user import user_bp
 from app.views.create import create_bp
-from app.views.gallery import gallery_bp
+from app.views.galleries import galleries_bp
 from app.views.projects import projects_bp
 # Fonction automatiquement appelée par le framework Flask lors de l'exécution de la commande python -m flask run permettant de lancer le projet
 # La fonction retourne une instance de l'application créée
@@ -28,7 +28,7 @@ def create_app():
     app.register_blueprint(artists_bp)
     app.register_blueprint(user_bp)
     app.register_blueprint(create_bp)
-    app.register_blueprint(gallery_bp)
+    app.register_blueprint(galleries_bp)
     app.register_blueprint(projects_bp)
     
     @app.context_processor

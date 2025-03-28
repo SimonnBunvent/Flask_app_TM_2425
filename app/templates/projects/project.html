@@ -6,12 +6,33 @@ Projets en progrès
 
 {% block content %}
 <div class="column">
-    <div class="row">
-        <div class="block row" style="width: 100%; padding-top: 10px;">
-            <div class="column">
-                <h5 style="margin-left: 0px;">
-                    <input type="text" name="img_desc" class="box-black-huge bbh-text" style="width: 300px;" placeholder="Description">
-                </h5>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="block column" style="width: 100%; padding-top: 10px; margin-top: 0%;">
+                <div class="row">
+                {%if image['path_to_file']%}
+                    <img src="{{ url_for('static', filename=image.path_to_file) }}" style="max-width: 700px; height: 100%;">
+                {%else%}
+                <div style="margin: auto;">
+                    <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
+                </div>
+                {%endif%}   
+                    <h5 style="margin-left: 0px;">
+                        <div class="box-black-huge column">
+                            {%if image['project_name']%}
+                            <div class="bbh-text2" style="padding-bottom: 0px; margin-bottom: 0px;">{{image['project_name']}}</div>
+                            {%else%}
+                            <input type="text" id="project_name" name="project_name" class="bbh-text2" style="padding-bottom: 0px; margin-bottom: 0px;" placeholder="titre de l'oeuvre">
+                            {%endif%}
+                            <div class="lineblk"></div>
+                            {%if image['description']%}
+                            <div class="bbh-text2" style="width: 300px; height: 250px;">{{image['description']}}</div>
+                            {%else%}
+                            <textarea name="img_desc" class="bbh-text2" style="width: 300px; height: 250px;" maxlength="300" placeholder="Description"></textarea>
+                            {%endif%}
+                        </div>
+                    </h5>
+                </div>
                 <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
                     {%if g.user['profile_pic'] is none%}
                         <a href="{{url_for('user.show_profile')}}">
@@ -23,53 +44,70 @@ Projets en progrès
                         </a>
                     {% endif %}
                 </div>
-                <span>{{ g.user['username'] }}</span>
+                <h5><span>{{ g.user['username'] }}</span></h5>
             </div>
-            <h3 class="projectNone">
-                <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
-            </h3> 
-        </div>
-        <div class="column" >
-            <h2 style="float: left;  margin-left:5%;">{{gallery['name']}}</h2>
-            <div class="block column" style="width: 400px;">
-                <div class="row">
-                        <div class="box-black-huge">
-                            <h5 style="opacity: .5; width: 250px;">{{gallery['description']}}</h5>
+            <div class="column" >
+                <h2 style="float: left;  margin-left:5%;">{{gallery['name']}}</h2>
+                <div class="block column" style="width: 400px; margin-top: 0%;">
+                    <div class="row">
+                            <div class="box-black-huge">
+                                <h5 style="opacity: .5; width: 250px;">{{gallery['description']}}</h5>
+                            </div>
+                        <div class="pp_container1" style="width: 50px; height: 50px; margin-left: 20px;">
+                            {%if g.user['profile_pic'] is none%}
+                                <a href="{{url_for('user.show_profile')}}">
+                                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                                </a>
+                            {% else %}
+                                <a href="{{url_for('user.show_profile')}}">
+                                    <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+                                </a>
+                            {% endif %}
                         </div>
-                    <div class="pp_container1" style="width: 50px; height: 50px; margin-left: 20px;">
-                        {%if g.user['profile_pic'] is none%}
-                            <a href="{{url_for('user.show_profile')}}">
-                                <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-                            </a>
-                        {% else %}
-                            <a href="{{url_for('user.show_profile')}}">
-                                <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
-                            </a>
-                        {% endif %}
                     </div>
-                </div>
-                    <input type="file" id="img" name="img" accept="image/*" style="display: none;">
-                    <label for="img">
-                        <div class="button" style="margin-left: 0%; margin: auto;">
-                            Déposer l'oeuvre
+                        {%if no_images%}
+                        <input type="file" id="img" name="img" accept="image/*" style="display: none;" required>
+                        <label for="img">
+                            <div class="button" style="margin-left: 0%; margin-right: 45%;">
+                                Déposer l'oeuvre
+                            </div>
+                        </label>
+                        <div style="margin-top: 10px; margin-left: auto; margin-right: auto;">
+                            <img id="deposit_img" src="{{ url_for('static', filename=image.path_to_file) }}" style="max-height: 300px;" alt="">
                         </div>
+                        {%else%}
+                        {%endif%}
+                    <div class="row">
+                        <input type="checkbox" id="check" onclick="myFunction()">
+                        <h5>Oeuvre déposé ?</h5>
+                    </div>
+                    <p id="oeuvreDepo">
+                    {%if no_images%}
+                        <button type="submit"class="button">Envoyer</button>
+                    {%else%}
+                    {%endif%}
+                    </p>
+                    <div class="lineblk">
+                        <h5>utilisateurs qui n'ont pas encore déposé leur oeuvre :</h5>
+                    </div>
+                    <label for="img" id="dnf">
+                        <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
+                            {%if g.user['profile_pic'] is none%}
+                                <a href="{{url_for('user.show_profile')}}">
+                                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                                </a>
+                            {% else %}
+                                <a href="{{url_for('user.show_profile')}}">
+                                    <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+                                </a>
+                            {% endif %}
+                        </div>
+                        <h5><span>{{ g.user['username'] }}</span></h5>
                     </label>
-                    <div style="margin-top: 10px; margin-left: auto; margin-right: auto;">
-                    {% if user.profile_pic is none%}
-                    {% else %}
-                        <img id="deposit_img" src="{{ url_for('static', filename=gallery.img) }}" alt="Profile Picture">
-                    {% endif %}
-                    </div>
-                <div class="row">
-                    <input type="checkbox">
-                    <h5>Oeuvre déposé ?</h5>
-                </div>
-                <div class="lineblk">
-                    <h5>utilisateurs qui n'ont pas encore déposé leur oeuvre :</h5>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <div class="shapeY"></div>
 </div>
 
@@ -84,5 +122,18 @@ Projets en progrès
             reader.readAsDataURL(file);
         }
     });
-    </script>
+
+function myFunction() {
+  var checkBox = document.getElementById("check");
+  var oeuvreDepo = document.getElementById("oeuvreDepo");
+  var dnf = document.getElementById("dnf");
+  if (checkBox.checked == true){
+    oeuvreDepo.style.display = "block";
+    dnf.style.display = "none";
+  } else {
+     oeuvreDepo.style.display = "none";
+     dnf.style.display = "block";
+  }
+}
+</script>
 {% endblock %}

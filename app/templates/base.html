@@ -18,7 +18,7 @@
             </div>
             <ul id="header-nav-menu">
                     <li><a href="{{ url_for('artists.people') }}">artistes</a></li>
-                    <li><a href="{{ url_for('gallery.artworks') }}">oeuvres</a></li>
+                    <li><a href="{{ url_for('galleries.artworks') }}">oeuvres</a></li>
                 {% if g.user %}                
                     <li><a href="{{ url_for('create.createproject') }}">créer projet</a></li>
                     <li><a href="{{ url_for('projects.projects') }}">mes projets</a></li>   

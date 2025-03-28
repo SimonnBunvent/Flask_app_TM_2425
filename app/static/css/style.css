@@ -498,6 +498,19 @@ a[href=emailcode]:hover{
   margin-left: 10px;
 }
 
+.bbh-text2{
+  background: transparent;
+  border: none;
+  border-style: none;
+  border-color: transparent;
+  padding: 5px 10px 10px 10px;
+  margin: 5px 2% 2% 0%;
+  resize: none;
+}
+.bbh-text2:focus {
+  outline: none;
+  border: none;
+}
 .blk-bx-margin{
   margin: 15px 12px 15px 12px;
 }
@@ -634,4 +647,8 @@ select {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+}
+
+#oeuvreDepo {
+  display: none;
 }
