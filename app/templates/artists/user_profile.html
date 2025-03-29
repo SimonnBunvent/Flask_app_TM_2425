@@ -32,7 +32,7 @@
         <div class="column">
           <h3>
             {%if user['mini_desc'] | trim == '' or user['mini_desc'] is none %}
-            <p class="wide" >Petite phrase qui vous décrit.</p>
+            <p class="wide" >Bonjour, je suis {{ user['username'] }}!</p>
             {%else%}
             <p class="wide" >{{user['mini_desc']}}</p>
             {%endif%}
@@ -48,11 +48,11 @@
           </div>
         </div>
 
-        <div id="shape1" style="padding: 20px;">
+        <div id="shape1" style="padding: 20px;justify-content: end;">
           <h5>
             <div style="line-height: 50px;">
               <span>{{user['name']}} {{user['last_name']}}</span>
-              <p>{{user['email']}}</p>
+              <p id="email">{{user['email']}}</p>
             </div>
             <p>
               Style d'art préféré : 
@@ -69,9 +69,23 @@
             <span>{{user['desc']}}</span>
             {%endif%}
           </h5> 
+        <button class="button" onclick="copyEmail()" style="margin: 97.5% 0% 0% 60%">contacter</button>
         </div>
-
       </div>
     </ul>
   </div>
 {% endblock %}
+
+<script>
+  function copyEmail() {
+    var email = document.getElementById("email").innerText;
+  
+    email.select();
+    email.setSelectionRange(0, 99999);
+
+    navigator.clipboard.writeText(email.value);
+  
+    alert("adresse mail copiée !" + email.value);
+  }
+</script>
+  

@@ -56,6 +56,7 @@ def project(id_gallery, name):
     id_user = session.get('id_user')
     gallery = db.execute("SELECT * FROM galleries WHERE id_gallery = ? AND name = ?", (id_gallery, name)).fetchone()
     image = db.execute("SELECT * FROM images JOIN contains ON images.id_img = contains.FK_img WHERE contains.FK_gallery = ? ORDER BY images.id_img DESC LIMIT 1", (id_gallery,)).fetchone()
+    no_participants = gallery['no_participants']
 
     image_count = db.execute("SELECT COUNT(*) FROM contains WHERE FK_gallery = ?", (id_gallery,)).fetchone()
     no_images = image_count[0] == 0
@@ -87,7 +88,7 @@ def project(id_gallery, name):
                 db.execute("INSERT INTO has_u_i (FK_img, FK_user) VALUES (?, ?)", (id_img, id_user,))
         db.commit()
         close_db()  
-        return render_template('projects/project.html', gallery=gallery, image=image, no_images=no_images)
+        return render_template('projects/project.html', gallery=gallery, image=image, no_images=no_images, no_participants=no_participants)
           
-    return render_template('projects/project.html', gallery=gallery, image=image, no_images=no_images)
+    return render_template('projects/project.html', gallery=gallery, image=image, no_images=no_images, no_participants=no_participants)
 

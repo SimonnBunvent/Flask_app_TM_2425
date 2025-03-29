@@ -521,6 +521,13 @@ a[href=emailcode]:hover{
   margin-top: 15px;
   margin-bottom: 5px;
 }
+.lineblkH {
+  border-top: 1px solid black;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
 
 .button{
   size: 20%;

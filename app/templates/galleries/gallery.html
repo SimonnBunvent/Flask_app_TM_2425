@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Galerie
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="column">
+    <h2>{{gallery['name']}}</h2>
+    <div class="row" style="width: 400px;">
+      {%for image in images%}
+      <div class="pp_container1" style="width: 100px; height: 100px; margin: 0px -500px 0px 0px;">
+      {%if g.user['profile_pic'] is none%}
+          <a href="{{url_for('user.show_profile')}}">
+              <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+          </a>
+      {% else %}
+          <a href="{{url_for('user.show_profile')}}">
+              <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+          </a>
+      {% endif %}
+      </div>
+      
+      {%endfor%}
+    </div>
+    <div>
+      <h3>{{user['username']}}</h3>
+    </div>
+    <div class="block" style="width: 100%; margin-top: 0%;"><h5>{{gallery['description']}}</h5></div>
+  </div>
+  {% if images %}
+    {% for image in images%}
+        <div class="column" style="margin-left: 25px; justify-content: end;">
+            <img src="{{ url_for('static', filename=image.path_to_file) }}" alt="{{ gallery.name }}" style="max-width: 100%; ">
+            <h5 style="position: absolute; color: white; opacity: .5;">{{user['username']}}</h5>
+        </div>
+    {% endfor %}
+    {% else %}
+        <p>No images available for this gallery.</p>
+    {% endif %}
+  </div>
+{% endblock %}

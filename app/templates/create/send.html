@@ -6,59 +6,36 @@ Envoyer l'email
 
 {% block content %}
 <div class="block" style=" width: 40%;">
-    <h5 class="center" style="font-size: 200%; font-weight: 400; padding-left: 10%a;"> Envoyer à :</h5>
-    <input list="users" id="userInput" placeholder="noms d'utilisateurs" class="box-black center" style="width: 100%;">
-    <div>
-        <datalist id="users">
-            {% for user in all_users %}
-                <option value="{{ user.username }}"></option>
-            {% endfor %}
-        </datalist>
-    </div>
-    <div class="lineblk" style="margin-left: 20%; margin-right: 20%;"></div>
-    <h5 class="center">{{ g.gallery['name'] }}</h5>
-    <div class="row">
-        <div class="box-black-huge column" style="width: 50%; justify-content: start;">
-            <h5 style="text-decoration: underline;">Description</h5>
-            <h5>{{ g.gallery['description'] }}</h5>
+    <form method="POST">
+        <h5 class="center" style="font-size: 200%; font-weight: 400; padding-left: 10%a;"> Envoyer à :</h5>
+        {% for i in range(no_participants) %}
+        <input list="users{{ i }}" name="users" id="userInput{{ i }}" placeholder="noms d'utilisateurs" class="box-black center" style="width: 100%;" required>
+        <div>
+            <datalist id="users{{ i }}">
+                {% for user in all_users %}
+                    <option value="{{ user.username }}"></option>
+                {% endfor %}
+            </datalist>
         </div>
-        <div class="column">
-            <h5>Format : {{g.gallery['format']}}</h5>
-            <h5>Participants : {{g.gallery['no_participants']}}</h5>
-            <h5>Délai : {{ g.gallery['deadline'] }}</h5>
-            <h5>Couleur de l'arrière-plan : {{g.gallery['color']}}</h5>
+        {% endfor %}
+        <div class="lineblk" style="margin-left: 20%; margin-right: 20%;"></div>
+        <h5 class="center">{{ g.gallery['name'] }}</h5>
+        <div class="row">
+            <div class="box-black-huge column" style="width: 50%; justify-content: start;">
+                <h5 style="text-decoration: underline;">Description</h5>
+                <h5>{{ g.gallery['description'] }}</h5>
+            </div>
+            <div class="column">
+                <h5>Format : {{g.gallery['format']}}</h5>
+                <h5>Participants : {{g.gallery['no_participants']}}</h5>
+                <h5>Délai : {{ g.gallery['deadline'] }}</h5>
+                <h5>Couleur de l'arrière-plan : {{g.gallery['color']}}</h5>
+            </div>
         </div>
-    </div>
-    <form action="{{ url_for('create.delete_last_gallery') }}" method="POST">
-        <button onclick="location.href='{{ url_for('projects.projects') }}'" class="center button">
+        <button type="submit" class="center button">
             Confirmer et envoyer
         </button>
         <a href="{{ url_for('create.createproject')}}" style="text-decoration: none;"><h5 class="center" style="opacity: .5;">retour</h5></a>
     </form>
 </div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let input = document.getElementById("userInput");
-    let selectedUsers = document.getElementById("selectedUsers");
-    let users = [{% for user in all_users %} "{{ user.username }}", {% endfor %}];
-    input.addEventListener("change", function() {
-        let name = input.value.trim();
-        if (name !== "" && users.includes(name)) { 
-            addUser(name);
-        }
-        input.value = "";
-    });
-
-    function addUser(name) {
-        if ([...selectedUsers.children].some(box => box.textContent === name)) return;
-
-        let box = document.createElement("div");
-        box.className = "user-box";
-        box.textContent = name;
-        box.onclick = function() { this.remove(); };
-        selectedUsers.appendChild(box);
-    }
-});
-</script>
 {% endblock %}

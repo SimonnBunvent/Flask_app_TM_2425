@@ -9,13 +9,14 @@ Projets en progrès
     <form method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="block column" style="width: 100%; padding-top: 10px; margin-top: 0%;">
+                {%for i in range (no_participants)%}
                 <div class="row">
-                {%if image['path_to_file']%}
+                {%if image['path_to_file'] and image['FK_user'] == id_user %}
                     <img src="{{ url_for('static', filename=image.path_to_file) }}" style="max-width: 700px; height: 100%;">
                 {%else%}
-                <div style="margin: auto;">
-                    <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
-                </div>
+                    <div style="margin: auto;">
+                        <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
+                    </div>
                 {%endif%}   
                     <h5 style="margin-left: 0px;">
                         <div class="box-black-huge column">
@@ -33,18 +34,21 @@ Projets en progrès
                         </div>
                     </h5>
                 </div>
-                <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
-                    {%if g.user['profile_pic'] is none%}
-                        <a href="{{url_for('user.show_profile')}}">
-                            <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-                        </a>
-                    {% else %}
-                        <a href="{{url_for('user.show_profile')}}">
-                            <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
-                        </a>
-                    {% endif %}
-                </div>
-                <h5><span>{{ g.user['username'] }}</span></h5>
+                    <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
+                        {%if g.user['profile_pic'] is none%}
+                            <a href="{{url_for('user.show_profile')}}">
+                                <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                            </a>
+                        {% else %}
+                            <a href="{{url_for('user.show_profile')}}">
+                                <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+                            </a>
+                        {% endif %}
+                    </div>
+                    <h5>
+                        <span>{{ g.user['username'] }}</span>
+                    </h5>
+                {%endfor%}
             </div>
             <div class="column" >
                 <h2 style="float: left;  margin-left:5%;">{{gallery['name']}}</h2>

@@ -25,6 +25,33 @@ def artworks():
 
     return render_template('galleries/artworks.html', galleries=galleries, images=images)
 
-@galleries_bp.route('/', methods=['GET', 'POST'])
-def gallery():
-    return render_template('galleries/gallery.html')
+@galleries_bp.route('/gallery/<int:id_gallery>/<name>', methods=('GET', 'POST'))
+def gallery(id_gallery, name):
+    db = get_db()
+    gallery = db.execute("SELECT * FROM galleries WHERE id_gallery = ? AND name = ?", (id_gallery, name)).fetchone()
+    images = db.execute(
+        """
+        SELECT images.* 
+        FROM images 
+        JOIN contains ON images.id_img = contains.FK_img 
+        WHERE contains.FK_gallery = ? 
+        ORDER BY images.id_img DESC
+        """, 
+        (id_gallery,)
+    ).fetchall()
+
+    id_img = db.execute("SELECT id_img FROM images ORDER BY id_img DESC LIMIT 1").fetchone()
+    id_img = id_img[0]
+    
+    users = db.execute(
+        """
+        SELECT users.* 
+        FROM users 
+        JOIN has_u_i ON users.id_user = has_u_i.FK_user
+        WHERE has_u_i.FK_img = ? 
+        ORDER BY users.id_user DESC
+        """, 
+        (id_img,)
+    ).fetchall
+
+    return render_template("galleries/gallery.html", gallery=gallery, images=images, users=users)
