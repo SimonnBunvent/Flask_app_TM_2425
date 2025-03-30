@@ -29,11 +29,14 @@ def artworks():
 def gallery(id_gallery, name):
     db = get_db()
     gallery = db.execute("SELECT * FROM galleries WHERE id_gallery = ? AND name = ?", (id_gallery, name)).fetchone()
+
     images = db.execute(
         """
-        SELECT images.* 
+        SELECT images.*, users.username 
         FROM images 
         JOIN contains ON images.id_img = contains.FK_img 
+        JOIN has_u_i ON images.id_img = has_u_i.FK_img  -- Join with has_u_i to link images and users
+        JOIN users ON has_u_i.FK_user = users.id_user  -- Link users via has_u_i
         WHERE contains.FK_gallery = ? 
         ORDER BY images.id_img DESC
         """, 
@@ -42,7 +45,9 @@ def gallery(id_gallery, name):
 
     id_img = db.execute("SELECT id_img FROM images ORDER BY id_img DESC LIMIT 1").fetchone()
     id_img = id_img[0]
-    
+
+    artists = db.execute("SELECT users.* FROM users JOIN has_u_g ON users.id_user = has_u_g.FK_user WHERE has_u_g.FK_gallery = ?", (id_gallery,)).fetchall()
+
     users = db.execute(
         """
         SELECT users.* 
@@ -52,6 +57,6 @@ def gallery(id_gallery, name):
         ORDER BY users.id_user DESC
         """, 
         (id_img,)
-    ).fetchall
+    ).fetchall()
 
-    return render_template("galleries/gallery.html", gallery=gallery, images=images, users=users)
+    return render_template("galleries/gallery.html", gallery=gallery, images=images, users=users, artists=artists)

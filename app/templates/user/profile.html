@@ -41,16 +41,32 @@
             {%endif%}
             <p>Les projets</p>
           </h3>
+        {%for gallery in galleries%}
+        {%if gallery.published == true%}
           <div style="margin-left: auto; margin-right: auto;">
             <div class="between">
-              adwad
-              <p>dawdad</p>
+              {{gallery['name']}}
+              <div class="project"> 
+              {%for artist in artists%}
+                {%if artist.profile_pic%}
+                  <a href="{{url_for('artists.user_profile', username=artist.username)}}">
+                    <img class="profile-pic" src="{{ url_for('static', filename=artist.profile_pic) }}" alt="Profile Picture" style="height: 40px; width: 40px;">
+                  </a>
+                {% else %}
+                  <a href="{{url_for('artists.user_profile', username=artist.username)}}">
+                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="height: 40px; width: 40px;">
+                  </a>
+                  {% endif %}
+                {%endfor%}
+              </div>
             </div>
-            <img  src="/static/imgs/ex.jpg" alt="exemple">
-            date du projet
+            <img  src="{{ url_for('static', filename=image.path_to_file)}}">
+            {{gallery['deadline']}}
+            </div>
+            {%else%}
+            {%endif%}
           </div>
-        </div>
-
+        {%if loop.first%}
         <div id="shape1" style="padding: 20px;">
           <h5>
             <div style="line-height: 50px;">
@@ -73,8 +89,10 @@
             {%endif%}
           </h5> 
         </div>
-
-      </div>
+        {%else%}
+        {%endif%}
+      {%endfor%}
+      </div>  
     </ul>
   </div>
 {% endblock %}

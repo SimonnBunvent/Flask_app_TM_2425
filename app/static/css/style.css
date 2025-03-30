@@ -659,3 +659,46 @@ select {
 #oeuvreDepo {
   display: none;
 }
+
+.img-grid {
+  display: flex;
+  margin: 0 auto;
+  padding: 5px;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.grid-img-a {
+  width: auto;
+  padding: 5px;
+}
+
+.grid-img{
+  height: 250px;
+  width: auto;
+}
+
+@media only screen and (min-width: 640px) {
+  .grid-img {
+    flex-basis: 50%;
+  }
+}
+
+@media only screen and (min-width: 960px) {
+  .grid-img {
+    flex-basis: 33.33333%;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .grid-img {
+    flex-basis: 25%;
+  }
+}
+
+.project{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+}

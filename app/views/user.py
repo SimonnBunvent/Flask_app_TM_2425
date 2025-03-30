@@ -16,9 +16,51 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 def show_profile():
     id_user = session.get('id_user')
     db = get_db()
-    # Affichage de la page principale de l'application
+    
     user = db.execute("SELECT * FROM users WHERE id_user = ?", (id_user,)).fetchone()
-    return render_template('user/profile.html', user=user)
+
+    galleries = db.execute(
+        """
+        SELECT galleries.* 
+        FROM galleries 
+        JOIN has_u_g ON galleries.id_gallery = has_u_g.FK_gallery 
+        WHERE has_u_g.FK_user = ?
+        """, 
+        (id_user,)
+    ).fetchall()
+
+    artists_by_gallery = {}
+    for gallery in galleries:
+        id_gallery = gallery["id_gallery"] 
+
+        artists = db.execute(
+            """
+            SELECT users.* 
+            FROM users 
+            JOIN has_u_g ON users.id_user = has_u_g.FK_user 
+            WHERE has_u_g.FK_gallery = ?
+            """, 
+            (id_gallery,)
+        ).fetchall()
+
+        artists_by_gallery[id_gallery] = artists
+
+    images = db.execute(
+        """
+        SELECT images.*, galleries.name AS gallery_name 
+        FROM images 
+        JOIN contains ON images.id_img = contains.FK_img 
+        JOIN galleries ON contains.FK_gallery = galleries.id_gallery 
+        JOIN has_u_i ON images.id_img = has_u_i.FK_img 
+        WHERE has_u_i.FK_user = ?
+        ORDER BY images.id_img DESC
+        """,
+        (id_user,)
+    ).fetchall()
+
+    image = images[0] if images else None  
+
+    return render_template('user/profile.html', user=user, galleries=galleries, images=images, image=image, artists=artists)
 
 @user_bp.route('/edit', methods=('GET', 'POST'))
 @login_required

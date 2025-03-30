@@ -5,21 +5,21 @@
 {% endblock %}
 
 {% block content %}
-    <div class="column">
-      <h2>Oeuvres</h2>
-        <div class="row">
-      {%if galleries%}
-        {%for gallery in galleries%}
-        {% if images[gallery.id_gallery] %}
-          <a href="{{ url_for('galleries.gallery', id_gallery=gallery.id_gallery, name=gallery.name) }}">
-            <img src="{{ url_for('static', filename=images[gallery.id_gallery].path_to_file) }}" alt="{{ gallery.name }}" style="height: 250px;">
-          </a>
-        {% else %}
-        {% endif %}
-        {%endfor%}
-      {%else%}
-      <h2>QUOI!? AUCUNE OEUVRE?</h2>
-      {%endif%}
-      </div>
+    <h2>Oeuvres</h2>
+    <div class="row">
+        <div class="img-grid">
+            {% if galleries %}
+                {% for gallery in galleries %}
+                    {% if images[gallery.id_gallery] %}
+                        <a href="{{ url_for('galleries.gallery', id_gallery=gallery.id_gallery, name=gallery.name) }}" class="grid-img-a">
+                            <img class="grid-img" src="{{ url_for('static', filename=images[gallery.id_gallery].path_to_file) }}" alt="{{ gallery.name }}">
+                        </a>
+
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
