@@ -9,46 +9,71 @@ Projets en progrès
     <form method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="block column" style="width: 100%; padding-top: 10px; margin-top: 0%;">
-                {%for i in range (no_participants)%}
-                <div class="row">
-                {%if image['path_to_file'] and image['FK_user'] == id_user %}
-                    <img src="{{ url_for('static', filename=image.path_to_file) }}" style="max-width: 700px; height: 100%;">
-                {%else%}
-                    <div style="margin: auto;">
-                        <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
-                    </div>
-                {%endif%}   
-                    <h5 style="margin-left: 0px;">
-                        <div class="box-black-huge column">
-                            {%if image['project_name']%}
-                            <div class="bbh-text2" style="padding-bottom: 0px; margin-bottom: 0px;">{{image['project_name']}}</div>
-                            {%else%}
-                            <input type="text" id="project_name" name="project_name" class="bbh-text2" style="padding-bottom: 0px; margin-bottom: 0px;" placeholder="titre de l'oeuvre">
-                            {%endif%}
+                {% for p in participants %}
+                    <div class="row">
+                        {% set participant_image = images.get(p.id_user) %}
+                        {% set editable = p.id_user == id_user %}
+                        
+                        {% if participant_image and participant_image.path_to_file %}
+                            <img src="{{ url_for('static', filename=participant_image.path_to_file) }}" style="max-width: 700px; height: 100%;">
+                        {% elif editable %}
+                            <input type="file" id="img" name="img" accept="image/*" style="display: none;" required>
+                            <label for="img">
+                                <div class="button" style="margin-left: 0%; margin-right: 45%;">Déposer l'œuvre</div>
+                            </label>
+                            <div style="margin-top: 10px; margin-left: auto; margin-right: auto;">
+                                <img id="deposit_img" src="" style="max-height: 300px;" alt="No image uploaded">
+                            </div>
+                        {% else %}
+                            <div style="margin: auto;">
+                                <h2 class="projectNone1">Aucun projet n'a été déposé...</h2>
+                            </div>
+                        {% endif %}
+
+                        <h5 style="margin-left: 0px;">
+                            <div class="box-black-huge column">
+                                {% if not participant_image and not participant_image.project_name %}
+                                <input type="text" id="project_name" name="project_name" class="bbh-text2" 
+                                    style="padding-bottom: 0px; margin-bottom: 0px;" placeholder="Titre de l'œuvre" required>
+                            {% elif participant_image and participant_image.project_name %}
+                                <div class="bbh-text2" style="padding-bottom: 0px; margin-bottom: 0px;">
+                                    {{ participant_image.project_name }}
+                                </div>
+                            {% else %}
+                                <div class="bbh-text2" style="width: 300px;">Titre de l'œuvre</div>
+                            {% endif %}
+                            
                             <div class="lineblk"></div>
-                            {%if image['description']%}
-                            <div class="bbh-text2" style="width: 300px; height: 250px;">{{image['description']}}</div>
-                            {%else%}
-                            <textarea name="img_desc" class="bbh-text2" style="width: 300px; height: 250px;" maxlength="300" placeholder="Description"></textarea>
-                            {%endif%}
-                        </div>
-                    </h5>
-                </div>
+                            
+                            {% if not participant_image and not participant_image.description %}
+                                <textarea type="text" id="description" name="img_desc" class="bbh-text2" 
+                                        style="width: 300px; height: 250px;" placeholder="Description de l'œuvre" required></textarea>
+                            {% elif participant_image and participant_image.description %}
+                                <div class="bbh-text2" style="width: 300px; height: 250px;">
+                                    {{ participant_image.description }}
+                                </div>
+                            {% else %}
+                                <div class="bbh-text2" style="width: 300px; height: 250px;">Description de l'œuvre</div>
+                            {% endif %}
+                            </div>
+                        </h5>
+                    </div>
+
                     <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
-                        {%if g.user['profile_pic'] is none%}
-                            <a href="{{url_for('user.show_profile')}}">
-                                <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
+                        {% if p.profile_pic %}
+                            <a href="{{ url_for('user.show_profile', id=p.id_user) }}">
+                                <img class="profile-pic" src="{{ url_for('static', filename=p.profile_pic) }}" alt="Profile Picture">
                             </a>
                         {% else %}
-                            <a href="{{url_for('user.show_profile')}}">
-                                <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
+                            <a href="{{ url_for('user.show_profile', id=p.id_user) }}">
+                                <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="Default Profile Picture">
                             </a>
                         {% endif %}
                     </div>
-                    <h5>
-                        <span>{{ g.user['username'] }}</span>
-                    </h5>
-                {%endfor%}
+
+                    <h5><span>{{ p.username }}</span></h5>
+                {% endfor %}
+
             </div>
             <div class="column" >
                 <h2 style="float: left;  margin-left:5%;">{{gallery['name']}}</h2>
@@ -69,48 +94,53 @@ Projets en progrès
                             {% endif %}
                         </div>
                     </div>
-                        {%if no_images%}
+                    {% if not user_image %}
                         <input type="file" id="img" name="img" accept="image/*" style="display: none;" required>
                         <label for="img">
-                            <div class="button" style="margin-left: 0%; margin-right: 45%;">
-                                Déposer l'oeuvre
-                            </div>
+                            <div class="button" style="margin-left: 0%; margin-right: 45%;">Déposer l'œuvre</div>
                         </label>
                         <div style="margin-top: 10px; margin-left: auto; margin-right: auto;">
-                            <img id="deposit_img" src="{{ url_for('static', filename=image.path_to_file) }}" style="max-height: 300px;" alt="">
+                            <img id="deposit_img" src="" style="max-height: 300px;">
                         </div>
+                        <div class="row">
+                            <input type="checkbox" id="check" onclick="myFunction()">
+                            <h5>Oeuvre déposé ?</h5>
+                        </div>
+                    <p id="oeuvreDepo">
+                        {% set participant_image = images.get(id_user) %}
+                        {% if not participant_image %}
+                        <button type="submit"class="button">Envoyer</button>
                         {%else%}
                         {%endif%}
-                    <div class="row">
-                        <input type="checkbox" id="check" onclick="myFunction()">
-                        <h5>Oeuvre déposé ?</h5>
-                    </div>
-                    <p id="oeuvreDepo">
-                    {%if no_images%}
-                        <button type="submit"class="button">Envoyer</button>
-                    {%else%}
-                    {%endif%}
                     </p>
+                    {% endif %}
                     <div class="lineblk">
                         <h5>utilisateurs qui n'ont pas encore déposé leur oeuvre :</h5>
                     </div>
-                    <label for="img" id="dnf">
-                        <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
-                            {%if g.user['profile_pic'] is none%}
-                                <a href="{{url_for('user.show_profile')}}">
-                                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic">
-                                </a>
-                            {% else %}
-                                <a href="{{url_for('user.show_profile')}}">
-                                    <img class="profile-pic" src="{{ url_for('static', filename=g.user.profile_pic) }}" alt="Profile Picture">
-                                </a>
-                            {% endif %}
+                        {% for p in participants %}
+                        {% set participant_image = images.get(p.id_user) %}
+                        <div class="row">
+                            {% if participant_image and participant_image.path_to_file %}
+                            {%else%}
+                            <div class="pp_container1" style="width: 60px; height: 60px; margin-top: 20px;">
+                                    {% if p.profile_pic %}
+                                        <a href="{{ url_for('user.show_profile', id=p.id_user) }}">
+                                            <img class="profile-pic" src="{{ url_for('static', filename=p.profile_pic) }}" alt="Profile Picture">
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('user.show_profile', id=p.id_user) }}">
+                                            <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="Default Profile Picture">
+                                        </a>
+                                    {% endif %}
+                            </div>
+                            <h5 style="margin-top: 50px; opacity: .5; font-weight: 600;"><span>{{ p['username'] }}</span></h5>
+                            {%endif%}
                         </div>
-                        <h5><span>{{ g.user['username'] }}</span></h5>
-                    </label>
+                        {%endfor%}
                 </div>
             </div>
         </div>
+        
     </form>
     <div class="shapeY"></div>
 </div>

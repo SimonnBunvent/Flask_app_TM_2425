@@ -45,10 +45,8 @@ Projets en progrès
                 <h3 style="margin: auto; margin-right: 20%;">
                     <a href="{{ url_for('projects.project', id_gallery=gallery.id_gallery, name=gallery.name) }}" style="text-decoration: none; color: white;">
                         {%if images[gallery.id_gallery] %}
-                        {% for image in images[gallery.id_gallery] %}
-                            <img id="deposit_img" src="{{ url_for('static', filename=image.path_to_file) }}" style="max-height: 600px; max-width: 550px; margin-left: 15%;">
-                        {%endfor%}
-                        {%else%}
+                            <img id="deposit_img" src="{{ url_for('static', filename=images[gallery.id_gallery][0].path_to_file) }}" style="max-height: 600px; max-width: 550px; margin-left: 15%;">
+                        {% else %}
                             Aucun projet n'a été déposé...
                         {%endif%}
                     </a>
