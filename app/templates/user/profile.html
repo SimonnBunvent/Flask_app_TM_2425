@@ -31,68 +31,110 @@
         </div> 
       </div>
       
+      {%if galleries%}
+        {%for gallery in galleries%}
+        <div class="profile_proj">
+          <div class="column">
+            {%if loop.first%}
+            <h3>
+              {%if user['mini_desc'] | trim == '' or user['mini_desc'] is none %}
+              <p class="wide" >Bonjour, je suis {{ user['username'] }}!</p>
+              {%else%}
+              <p class="wide" >{{user['mini_desc']}}</p>
+              {%endif%}
+              <p>Les projets</p>
+            </h3>
+            {%else%}
+            <div style="margin-top: 50px;"></div>
+            {%endif%}
+              <div style="margin-left: auto; margin-right: auto;">
+                <div class="between">
+                  {{gallery['name']}}
+                  <div class="project"> 
+                  {%for artist in artists%}
+                    {%if artist.profile_pic%}
+                      <a href="{{url_for('artists.user_profile', username=artist.username)}}">
+                        <img class="profile-pic" src="{{ url_for('static', filename=artist.profile_pic) }}" alt="Profile Picture" style="height: 40px; width: 40px;">
+                      </a>
+                    {% else %}
+                      <a href="{{url_for('artists.user_profile', username=artist.username)}}">
+                        <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="height: 40px; width: 40px;">
+                      </a>
+                    {% endif %}
+                  {%endfor%}
+                  </div>
+                </div>
+                <img  src="/static/imgs/ex.jpg" alt="exemple">
+                {{gallery['deadline']}}
+              </div>
+          </div>
+          
+        {%if loop.first%}
+          <div id="shape1" style="padding: 20px;justify-content: end;">
+            <h5>
+              <div style="line-height: 50px;">
+                <span>{{user['name']}} {{user['last_name']}}</span>
+                <p id="email">{{user['email']}}</p>
+              </div>
+              <p>
+                Style d'art préféré : 
+                {%if user['fav_style'] | trim == '' or user['fav_style'] is none %}
+                Aucun style spécifié...
+                {%else%}
+                {{user['fav_style']}}
+                {%endif%}
+              </p>
+              <div class="lineblk"></div>
+              {%if user['desc'] | trim == '' or user['desc'] is none %}
+              <p>Aucune description...</p>
+              {%else%}
+              <span>{{user['desc']}}</span>
+              {%endif%}
+            </h5> 
+          <button class="button" onclick="copyEmail()" style="margin: 97.5% 0% 0% 60%">contacter</button>
+          </div>
+          {%else%}
+          {%endif%}
+        </div>
+        {%endfor%}
+      {%else%}
       <div class="profile_proj">
         <div class="column">
           <h3>
-            {%if g.user['mini_desc'] | trim == '' or g.user['mini_desc'] is none %}
-            <p class="wide" >Petite phrase qui vous décrit.</p>
+            {%if user['mini_desc'] | trim == '' or user['mini_desc'] is none %}
+            <p class="wide" >Bonjour, je suis {{ user['username'] }}!</p>
             {%else%}
-            <p class="wide" >{{g.user['mini_desc']}}</p>
+            <p class="wide" >{{user['mini_desc']}}</p>
             {%endif%}
             <p>Les projets</p>
           </h3>
-        {%for gallery in galleries%}
-        {%if gallery.published == true%}
-          <div style="margin-left: auto; margin-right: auto;">
-            <div class="between">
-              {{gallery['name']}}
-              <div class="project"> 
-              {%for artist in artists%}
-                {%if artist.profile_pic%}
-                  <a href="{{url_for('artists.user_profile', username=artist.username)}}">
-                    <img class="profile-pic" src="{{ url_for('static', filename=artist.profile_pic) }}" alt="Profile Picture" style="height: 40px; width: 40px;">
-                  </a>
-                {% else %}
-                  <a href="{{url_for('artists.user_profile', username=artist.username)}}">
-                    <img class="profile-pic" src="/static/imgs/profile-pic.webp" alt="default profile pic" style="height: 40px; width: 40px;">
-                  </a>
-                  {% endif %}
-                {%endfor%}
-              </div>
+            <div style="margin-left: auto; margin-right: auto; margin-top: 50px;">
+              <h5 style="color: white; opacity: .75;">Aucune galerie publiée...</h5>
             </div>
-            <img  src="{{ url_for('static', filename=image.path_to_file)}}">
-            {{gallery['deadline']}}
-            </div>
-            {%else%}
-            {%endif%}
-          </div>
-        {%if loop.first%}
-        <div id="shape1" style="padding: 20px;">
+        </div>
+        <div id="shape1" style="padding: 20px;justify-content: end;">
           <h5>
             <div style="line-height: 50px;">
-              <span>{{g.user['name']}} {{g.user['last_name']}}</span>
-              <p>{{g.user['email']}}</p>
+              <span>{{user['name']}} {{user['last_name']}}</span>
+              <p id="email">{{user['email']}}</p>
             </div>
             <p>
               Style d'art préféré : 
-              {%if g.user['fav_style'] | trim == '' or g.user['fav_style'] is none %}
+              {%if user['fav_style'] | trim == '' or user['fav_style'] is none %}
               Aucun style spécifié...
               {%else%}
-              {{g.user['fav_style']}}
+              {{user['fav_style']}}
               {%endif%}
             </p>
             <div class="lineblk"></div>
-            {%if g.user['desc'] | trim == '' or g.user['desc'] is none %}
+            {%if user['desc'] | trim == '' or user['desc'] is none %}
             <p>Aucune description...</p>
             {%else%}
-            <span>{{g.user['desc']}}</span>
+            <span>{{user['desc']}}</span>
             {%endif%}
           </h5> 
         </div>
-        {%else%}
-        {%endif%}
-      {%endfor%}
-      </div>  
+      {%endif%}
     </ul>
   </div>
 {% endblock %}

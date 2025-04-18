@@ -40,7 +40,7 @@ def send():
     id_gallery = id_gallery['id_gallery']
 
 
-    g.gallery = db.execute("SELECT galleries.* FROM galleries JOIN has_u_g ON galleries.id_gallery = has_u_g.FK_gallery WHERE has_u_g.FK_user = ? ORDER BY galleries.id_gallery DESC LIMIT 1", (id_user,)).fetchone()
+    gallery = db.execute("SELECT galleries.* FROM galleries JOIN has_u_g ON galleries.id_gallery = has_u_g.FK_gallery WHERE has_u_g.FK_user = ? ORDER BY galleries.id_gallery DESC LIMIT 1", (id_user,)).fetchone()
     all_users = db.execute("SELECT username FROM users").fetchall()
 
 
@@ -72,4 +72,4 @@ def send():
         return redirect(url_for('projects.projects'))
 
 
-    return render_template('create/send.html', all_users=all_users, no_participants=g.gallery['no_participants'])
+    return render_template('create/send.html', all_users=all_users, no_participants=gallery['no_participants'])

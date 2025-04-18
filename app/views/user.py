@@ -30,6 +30,8 @@ def show_profile():
     ).fetchall()
 
     artists_by_gallery = {}
+    artists = []
+
     for gallery in galleries:
         id_gallery = gallery["id_gallery"] 
 
