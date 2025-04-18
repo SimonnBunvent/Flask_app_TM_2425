@@ -33,14 +33,13 @@ def send():
     db = get_db() 
     id_user = session.get('id_user')
     
-    if not id_user:
-        return redirect(url_for('auth.login'))
-    
     id_gallery = db.execute("SELECT id_gallery FROM galleries ORDER BY id_gallery DESC LIMIT 1").fetchone()
     id_gallery = id_gallery['id_gallery']
 
+    db.execute("INSERT INTO has_u_g (FK_user, FK_gallery) VALUES (?, ?)", (id_user, id_gallery))
+    
 
-    gallery = db.execute("SELECT galleries.* FROM galleries JOIN has_u_g ON galleries.id_gallery = has_u_g.FK_gallery WHERE has_u_g.FK_user = ? ORDER BY galleries.id_gallery DESC LIMIT 1", (id_user,)).fetchone()
+    gallery = db.execute("SELECT * FROM galleries WHERE id_gallery = ?", (id_gallery,)).fetchone()
     all_users = db.execute("SELECT username FROM users").fetchall()
 
 
@@ -70,6 +69,7 @@ def send():
         db.commit()
 
         return redirect(url_for('projects.projects'))
+    db.commit()
 
 
-    return render_template('create/send.html', all_users=all_users, no_participants=gallery['no_participants'])
+    return render_template('create/send.html', all_users=all_users, no_participants=gallery['no_participants'], gallery=gallery)
