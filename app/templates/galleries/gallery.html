@@ -35,13 +35,15 @@
     <div class="block" style="width: 500px; margin: 0%;"><h5>{{gallery['description']}}</h5></div>
     <h4 style="color: white;">{{gallery['deadline']}}</h4>
   </div>
+  <div class="column">
   {% if images %}
     {% for image in images %}
-        <div class="column" style="margin-left: 25px; justify-content: end;">
-            <img src="{{ url_for('static', filename=image.path_to_file) }}" alt="{{ gallery.name }}" style="max-width: 100%;">
-            <h5 style="position: absolute; color: white; opacity: .5;">{{ image.username }}</h5>
+        <div class="column" style="margin-left: 25px; justify-content: end; display: inline-block; margin: 10px;">
+            <img src="{{ url_for('static', filename=image.path_to_file) }}" alt="{{ gallery.name }}" style="width: auto; height: auto; display: block;">
+            <h5 style="position: absolute; color: white; opacity: .5; margin-top: -35px;">{{ image.username }}</h5>
         </div>
     {% endfor %}
   {% endif %}
+  </div>
   </div>
 {% endblock %}
