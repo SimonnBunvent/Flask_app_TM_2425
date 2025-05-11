@@ -36,9 +36,6 @@ def send():
     id_gallery = db.execute("SELECT id_gallery FROM galleries ORDER BY id_gallery DESC LIMIT 1").fetchone()
     id_gallery = id_gallery['id_gallery']
 
-    db.execute("INSERT INTO has_u_g (FK_user, FK_gallery) VALUES (?, ?)", (id_user, id_gallery))
-    
-
     gallery = db.execute("SELECT * FROM galleries WHERE id_gallery = ?", (id_gallery,)).fetchone()
     all_users = db.execute("SELECT username FROM users").fetchall()
 

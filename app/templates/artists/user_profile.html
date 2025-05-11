@@ -87,7 +87,6 @@
               <span>{{user['desc']}}</span>
               {%endif%}
             </h5> 
-          <button class="button" onclick="copyEmail()" style="margin: 97.5% 0% 0% 60%">contacter</button>
           </div>
           {%else%}
           {%endif%}
@@ -129,23 +128,10 @@
             <span>{{user['desc']}}</span>
             {%endif%}
           </h5> 
-        <button class="button" onclick="copyEmail()" style="margin: 97.5% 0% 0% 60%">contacter</button>
         </div>
       {%endif%}
     </ul>
   </div>
 {% endblock %}
 
-<script>
-  function copyEmail() {
-    var email = document.getElementById("email").innerText;
-  
-    email.select();
-    email.setSelectionRange(0, 99999);
-
-    navigator.clipboard.writeText(email.value);
-  
-    alert("adresse mail copiée !" + email.value);
-  }
-</script>
   

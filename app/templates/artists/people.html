@@ -25,7 +25,14 @@
               </div>
               <p style="margin-top: auto;">{{user['username']}}</p>
             </div>
-            <img src="/static/imgs/ex.jpg">
+            <a href="{{ url_for('artists.user_profile', username=user.username) }}" style="text-decoration: none; color: #ff1058f5;">
+            <div class="click_user">
+              {%if loop.first%}
+              <h2 style="opacity: .5;">Cliquez pour inspecter le profil de l'utilisateur.</h3>
+              {%else%}
+              {%endif%}
+            </div>
+            </a>
           </div>
         {% if loop.index % 3 == 0 or loop.last %}
         </div>

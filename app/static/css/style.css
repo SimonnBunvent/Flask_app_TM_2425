@@ -702,3 +702,12 @@ select {
   flex-direction: row;
   margin-bottom: 5px;
 }
+
+.click_user{
+  display: block;
+  background-color: #ff10588c;
+  width: auto;
+  height: 300px;
+  justify-content: center;
+  text-align: center;
+}
