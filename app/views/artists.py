@@ -64,4 +64,6 @@ def user_profile(username):
         (id_user,)
     ).fetchall()
 
-    return render_template('artists/user_profile.html', user=user, galleries=galleries, images=images, artists=artists)
+    image = images[0] if images else None 
+
+    return render_template('artists/user_profile.html', user=user, galleries=galleries, images=images, image=image, artists=artists)

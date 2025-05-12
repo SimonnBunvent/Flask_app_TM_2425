@@ -60,7 +60,7 @@ def show_profile():
         (id_user,)
     ).fetchall()
 
-    image = images[0] if images else None  
+    image = images[0] if images else None 
 
     return render_template('user/profile.html', user=user, galleries=galleries, images=images, image=image, artists=artists)
 

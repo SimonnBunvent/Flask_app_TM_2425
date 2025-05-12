@@ -35,7 +35,7 @@
         {%for gallery in galleries%}
         <div class="profile_proj">
           <div class="column">
-            {%if loop.first%}
+          {%if loop.first%}
             <h3>
               {%if user['mini_desc'] | trim == '' or user['mini_desc'] is none %}
               <p class="wide" >Bonjour, je suis {{ user['username'] }}!</p>
@@ -44,10 +44,14 @@
               {%endif%}
               <p>Les projets</p>
             </h3>
-            {%else%}
+          {%else%}
             <div style="margin-top: 50px;"></div>
+          {%endif%}
+            {%if loop.first%}
+              <div style="margin-left: auto; margin-right: auto; max-width: 1000px;">
+            {%else%}
+              <div style="margin-left: auto; margin-right: auto; max-width: 80%;">
             {%endif%}
-              <div style="margin-left: auto; margin-right: auto;">
                 <div class="between">
                   {{gallery['name']}}
                   <div class="project"> 
@@ -64,7 +68,7 @@
                   {%endfor%}
                   </div>
                 </div>
-                <img  src="/static/imgs/ex.jpg" alt="exemple">
+                <img src="{{ url_for('static', filename=image.path_to_file)}}">
                 {{gallery['deadline']}}
               </div>
           </div>
@@ -91,10 +95,9 @@
               <span>{{user['desc']}}</span>
               {%endif%}
             </h5> 
-          <button class="button" onclick="copyEmail()" style="margin: 97.5% 0% 0% 60%">contacter</button>
           </div>
-          {%else%}
-          {%endif%}
+        {%else%}
+        {%endif%}
         </div>
         {%endfor%}
       {%else%}
