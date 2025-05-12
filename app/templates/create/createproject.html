@@ -41,9 +41,6 @@
           <option value="9:16">9:16</option>
         </select>
 
-
-<div id="dynamicContent"></div>
-
         <div class="lineblk"></div>
         <div class="row">     
           <div class="column">
@@ -64,15 +61,13 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const aspectRatioSelect = document.getElementById('aspectRatio');
-    const dynamicContent = document.getElementById('dynamicContent');
     const shapeX = document.getElementById('shapeX');
 
     function updateContent() {
       const selectedValue = aspectRatioSelect.value;
 
       if (selectedValue !== "libre") {
-        dynamicContent.innerHTML = "";
-        
+        shapeX.innerHTML = "";
       }
 
       if (selectedValue === "libre") {
@@ -110,8 +105,6 @@
     updateContent();
     
     aspectRatioSelect.addEventListener('change', updateContent);
- 
-    
   });
   function updateHexCode() {
         const colorPicker = document.getElementById("colorPicker");

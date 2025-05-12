@@ -35,8 +35,8 @@ def gallery(id_gallery, name):
         SELECT images.*, users.username 
         FROM images 
         JOIN contains ON images.id_img = contains.FK_img 
-        JOIN has_u_i ON images.id_img = has_u_i.FK_img  -- Join with has_u_i to link images and users
-        JOIN users ON has_u_i.FK_user = users.id_user  -- Link users via has_u_i
+        JOIN has_u_i ON images.id_img = has_u_i.FK_img
+        JOIN users ON has_u_i.FK_user = users.id_user
         WHERE contains.FK_gallery = ? 
         ORDER BY images.id_img DESC
         """, 
