@@ -40,7 +40,7 @@
     {% for image in images %}
         <div class="column" style="margin-left: 25px; justify-content: end; display: inline-block; margin: 10px;">
             <img src="{{ url_for('static', filename=image.path_to_file) }}" alt="{{ gallery.name }}" style="width: auto; height: auto; display: block;">
-            <h5 style="position: absolute; color: white; opacity: .5; margin-top: -35px;">{{ image.username }}</h5>
+            <h5 style="position: absolute; color: white; opacity: .5; margin-top: -35px; text-shadow: 2px 2px black;">{{ image.username }}</h5>
         </div>
     {% endfor %}
   {% endif %}
