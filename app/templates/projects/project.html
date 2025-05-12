@@ -34,7 +34,7 @@ Projets en progrès
                             <div class="box-black-huge column">
                                 {% if not participant_image and not participant_image.project_name %}
                                 <input type="text" id="project_name" name="project_name" class="bbh-text2" 
-                                    style="padding-bottom: 0px; margin-bottom: 0px;" placeholder="Titre de l'œuvre" required>
+                                    style="padding-bottom: 0px; margin-bottom: 0px;" placeholder="Titre de l'œuvre">
                             {% elif participant_image and participant_image.project_name %}
                                 <div class="bbh-text2" style="padding-bottom: 0px; margin-bottom: 0px;">
                                     {{ participant_image.project_name }}
@@ -47,7 +47,7 @@ Projets en progrès
                             
                             {% if not participant_image and not participant_image.description %}
                                 <textarea type="text" id="description" name="img_desc" class="bbh-text2" 
-                                        style="width: 300px; height: 250px;" placeholder="Description de l'œuvre" required></textarea>
+                                        style="width: 300px; height: 250px;" placeholder="Description de l'œuvre"></textarea>
                             {% elif participant_image and participant_image.description %}
                                 <div class="bbh-text2" style="width: 300px; height: 250px;">
                                     {{ participant_image.description }}
@@ -95,7 +95,7 @@ Projets en progrès
                         </div>
                     </div>
                     {% if not user_image %}
-                        <input type="file" id="img" name="img" accept="image/*" style="display: none;" required>
+                        <input type="file" id="img" name="img" accept="image/*" style="display: none;">
                         <label for="img">
                             <div class="button" style="margin-left: 0%; margin-right: 45%;">Déposer l'œuvre</div>
                         </label>
