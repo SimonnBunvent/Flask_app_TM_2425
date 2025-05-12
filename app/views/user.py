@@ -88,7 +88,7 @@ def edit_profile():
             profile_pic.save(save_path)
 
             file_path = os.path.join('uploads', filename).replace("\\", "/")
-            db.execute("UPDATE users SET profile_pic = ? WHERE id_user = ?",(file_path))
+            db.execute("UPDATE users SET profile_pic = ? WHERE id_user = ?",(file_path, id_user))
 
         db.execute("UPDATE users SET last_name = ?, name = ?, fav_style = ?, mini_desc = ?, desc = ? WHERE id_user = ?",
                     (last_name, name, fav_style, mini_desc, desc, id_user))
