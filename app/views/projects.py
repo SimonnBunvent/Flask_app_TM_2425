@@ -57,7 +57,7 @@ def project(id_gallery, name):
     gallery = db.execute("SELECT * FROM galleries WHERE id_gallery = ? AND name = ?", (id_gallery, name)).fetchone()
     no_users = gallery['no_participants']
     participants = db.execute("SELECT users.* FROM users JOIN has_u_g ON users.id_user = has_u_g.FK_user WHERE has_u_g.FK_gallery = ?", (id_gallery,)).fetchall()
-    images = {p["id_user"]: db.execute("SELECT * FROM images JOIN has_u_i ON images.id_img = has_u_i.FK_img WHERE has_u_i.FK_user = ? AND images.id_img IN (SELECT FK_img FROM contains WHERE FK_gallery = ?)", (p["id_user"], id_gallery)).fetchone()for p in participants}
+    images = {p["id_user"]: db.execute("""SELECT * FROM images JOIN has_u_i ON images.id_img = has_u_i.FK_img WHERE has_u_i.FK_user = ? AND images.id_img IN (SELECT FK_img FROM contains WHERE FK_gallery = ?)""", (p["id_user"], id_gallery)).fetchone()for p in participants}
     img_format = gallery['format']
     image_count = db.execute("SELECT COUNT(*) FROM contains WHERE FK_gallery = ?", (id_gallery,)).fetchone()[0]
     user_image = db.execute("SELECT images.* FROM images JOIN has_u_i ON images.id_img = has_u_i.FK_img JOIN contains ON images.id_img = contains.FK_img WHERE has_u_i.FK_user = ? AND contains.FK_gallery = ?",(id_user, id_gallery)).fetchone()
