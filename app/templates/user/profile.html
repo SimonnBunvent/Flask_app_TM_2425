@@ -68,7 +68,9 @@
                   {%endfor%}
                   </div>
                 </div>
-                <img src="{{ url_for('static', filename=image.path_to_file)}}">
+                <a href="{{ url_for('galleries.gallery', id_gallery=gallery.id_gallery, name=gallery.name) }}">
+                  <img src="{{ url_for('static', filename=image.path_to_file)}}">
+                </a>
                 {{gallery['deadline']}}
               </div>
           </div>
